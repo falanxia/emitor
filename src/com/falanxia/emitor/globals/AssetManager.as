@@ -24,6 +24,8 @@ package com.falanxia.emitor.globals {
 	import com.falanxia.emitor.Asset;
 	import com.falanxia.emitor.interfaces.IAssetProvider;
 
+	import com.falanxia.utilitaris.helpers.printf;
+
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 
@@ -51,11 +53,8 @@ package com.falanxia.emitor.globals {
 		 * @see IAssetProvider
 		 */
 		public static function attachProvider(provider:IAssetProvider):void {
-			if(_provider == null) {
-				_provider = provider;
-			}
-
-			else throw new Error('Asset provider already attached');
+			if(_provider == null) _provider = provider;
+			else throw new Error("Asset provider already attached");
 		}
 
 
@@ -69,7 +68,7 @@ package com.falanxia.emitor.globals {
 		public static function getAsset(id:String):* {
 			var out:Asset;
 
-			if(_provider == null) throw new Error('Asset provider not attached');
+			if(_provider == null) throw new Error("Asset provider not attached");
 
 			else {
 				for each(var item:Asset in _provider.assetsDictionary) {
@@ -89,20 +88,20 @@ package com.falanxia.emitor.globals {
 		public static function toString():String {
 			var out:String;
 
-			if(_provider == null) out = 'AssetManager info:\n  provider not attached';
+			if(_provider == null) out = "AssetManager info:\n  provider not attached";
 
 			else {
 				// create list of assets
-				var list:String = '';
+				var list:String = "";
 				for each(var i:Asset in _provider.assetsDictionary) {
-					list += i.id + ', ';
+					list += i.id + ", ";
 				}
 
-				// strip trailing ', '
+				// strip trailing ", "
 				list = list.substr(0, list.length - 2);
 
 				var ps:String = _provider.toString();
-				out = 'AssetManager info:\n  provider=' + ps + '\n  registered assets: ' + list;
+				out = printf("AssetManager info:\n  provider=%s\n  registered assets: %s", ps, list);
 			}
 
 			return out;
@@ -119,7 +118,7 @@ package com.falanxia.emitor.globals {
 		 * @throws {@code Error} if {@code Asset} provider not attached
 		 */
 		public static function get assetsDictionary():Dictionary {
-			if(_provider == null) throw new Error('Asset provider not attached');
+			if(_provider == null) throw new Error("Asset provider not attached");
 
 			else {
 				// return asset list

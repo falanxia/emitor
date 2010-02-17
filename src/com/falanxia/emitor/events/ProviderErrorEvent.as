@@ -79,7 +79,7 @@ package com.falanxia.emitor.events {
 		 * @return {@code Event} description
 		 */
 		public override function toString():String {
-			return formatToString("ProviderErrorEvent", "type", "bubbles", 'cancelable', 'text');
+			return formatToString("ProviderErrorEvent", "type", "bubbles", "cancelable", "text");
 		}
 	}
 }

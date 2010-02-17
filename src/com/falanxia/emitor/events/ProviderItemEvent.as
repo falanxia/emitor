@@ -39,7 +39,7 @@ package com.falanxia.emitor.events {
 
 
 		/** Item was successfully loaded */
-		public static const ITEM_LOADED:String = 'item_loaded';
+		public static const ITEM_LOADED:String = "ItemLoaded";
 
 		public var asset:Asset;
 
@@ -76,7 +76,7 @@ package com.falanxia.emitor.events {
 		 * @return {@code Event} description
 		 */
 		public override function toString():String {
-			return formatToString('ProviderItemEvent', 'type', 'bubbles', 'cancelable', 'asset');
+			return formatToString("ProviderItemEvent", "type", "bubbles", "cancelable", "asset");
 		}
 	}
 }

@@ -48,7 +48,7 @@ package com.falanxia.emitor.providers {
 	public class LibrariumAssetProvider extends AssetProvider implements IAssetProvider {
 
 
-		private static const _ASSETS_CONFIG_INDEX:String = 'config.json';
+		private static const _ASSETS_CONFIG_INDEX:String = "config.json";
 
 		private var _contentURL:String;
 		private var _librarium:Librarium;
@@ -245,7 +245,7 @@ package com.falanxia.emitor.providers {
 					_assetsConfig = JSON.decode(_librarium.getItem(_assetsConfigIndex).getString());
 				}
 				catch(err:Error) {
-					dispatchEvent(new ProviderErrorEvent(ProviderErrorEvent.CONFIG_PARSING_ERROR, false, false, printf('Librarium Asset Provider: Error parsing config JSON (%s)', err.message)));
+					dispatchEvent(new ProviderErrorEvent(ProviderErrorEvent.CONFIG_PARSING_ERROR, false, false, printf("Librarium Asset Provider: Error parsing config JSON (%s)", err.message)));
 					_isError = true;
 				}
 			}
@@ -281,7 +281,7 @@ package com.falanxia.emitor.providers {
 
 
 		private function _onLibrariumError(event:LibrariumErrorEvent):void {
-			_dispatchError(ProviderErrorEvent.PROVIDER_ERROR, printf('LibrariumAssetProvider error: %s', event.text));
+			_dispatchError(ProviderErrorEvent.PROVIDER_ERROR, printf("LibrariumAssetProvider error: %s", event.text));
 		}
 	}
 }
