@@ -167,7 +167,7 @@ package com.falanxia.emitor.providers {
 
 				if(leaf is String) {
 					// ok, it's a String
-					var index:String = leaf as String;
+					var index:String = String(leaf);
 
 					if(_librarium.contains(index)) {
 						// it's a filename, since it's in the librarium archive
@@ -213,7 +213,7 @@ package com.falanxia.emitor.providers {
 
 
 		private function _onItemReady(event:Event):void {
-			var bitmap:Bitmap = event.target as Bitmap;
+			var bitmap:Bitmap = Bitmap(event.target);
 
 			// remove all event listeners
 			bitmap.removeEventListener(Event.COMPLETE, _onItemReady);
