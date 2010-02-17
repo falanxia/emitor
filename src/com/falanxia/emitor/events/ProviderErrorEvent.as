@@ -38,16 +38,16 @@ package com.falanxia.emitor.events {
 
 
 		/** Provider error */
-		public static const PROVIDER_ERROR:String = 'provider_error';
+		public static const PROVIDER_ERROR:String = "ProviderError";
 
 		/** Item not found */
-		public static const ITEM_NOT_FOUND:String = 'item_not_found';
+		public static const ITEM_NOT_FOUND:String = "ItemNotFound";
 
 		/** Item load failed */
-		public static const ITEM_LOAD_FAILED:String = 'item_load_failed';
+		public static const ITEM_LOAD_FAILED:String = "ItemLoadFailed";
 
 		/** Config parsing error */
-		public static const CONFIG_PARSING_ERROR:String = 'config_parsing_error';
+		public static const CONFIG_PARSING_ERROR:String = "ConfigParsingError";
 
 
 
@@ -58,7 +58,7 @@ package com.falanxia.emitor.events {
 		 * @param cancelable Cancel enabled
 		 * @param text {@code Error} description
 		 */
-		public function ProviderErrorEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = '') {
+		public function ProviderErrorEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "") {
 			super(type, bubbles, cancelable, text);
 		}
 
@@ -79,7 +79,7 @@ package com.falanxia.emitor.events {
 		 * @return {@code Event} description
 		 */
 		public override function toString():String {
-			return formatToString('ProviderErrorEvent', 'type', 'bubbles', 'cancelable', 'text');
+			return formatToString("ProviderErrorEvent", "type", "bubbles", 'cancelable', 'text');
 		}
 	}
 }

@@ -62,7 +62,7 @@ package com.falanxia.emitor {
 		public function addChunk(chunk:Chunk):void {
 			for each(var c:Chunk in _chunksList) {
 				if(c.url == chunk.url) {
-					throw new Error(printf('Chunk with URL %s already added', chunk.url));
+					throw new Error(printf("Chunk with URL %s already added", chunk.url));
 				}
 			}
 
@@ -86,7 +86,7 @@ package com.falanxia.emitor {
 				if(c.url == url) o = c;
 			}
 
-			if(o == null) throw new Error(printf('Chunk with URL "%s" not found in Asset "%s"', url, _id));
+			if(o == null) throw new Error(printf("Chunk with URL \"%s\" not found in Asset \"%s\"", url, _id));
 
 			return o;
 		}
@@ -143,7 +143,7 @@ package com.falanxia.emitor {
 		 * @return {@code Asset} Description
 		 */
 		public function toString():String {
-			return printf('Asset id="%s"', id);
+			return printf("Asset id=\"%s\"", id);
 		}
 	}
 }
