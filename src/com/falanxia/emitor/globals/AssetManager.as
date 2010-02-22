@@ -23,7 +23,6 @@
 package com.falanxia.emitor.globals {
 	import com.falanxia.emitor.Asset;
 	import com.falanxia.emitor.interfaces.IAssetProvider;
-
 	import com.falanxia.utilitaris.helpers.printf;
 
 	import flash.events.EventDispatcher;
