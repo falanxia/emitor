@@ -48,15 +48,15 @@ package com.falanxia.emitor.providers {
 	public class LibrariumAssetProvider extends AssetProvider implements IAssetProvider {
 
 
-		private static const _ASSETS_CONFIG_INDEX:String = "config.json";
+		private static const ASSETS_CONFIG_INDEX:String = "config.json";
 
-		private var _contentURL:String;
-		private var _librarium:Librarium;
-		private var _chunkLoadCounter:uint;
-		private var _assetsConfig:Object;
-		private var _assetsConfigIndex:String;
-		private var _chunkDictionary:Dictionary;
-		private var _indexDictionary:Dictionary;
+		private var contentURL:String;
+		private var librarium:Librarium;
+		private var chunkLoadCounter:uint;
+		private var assetsConfig:Object;
+		private var assetsConfigIndex:String;
+		private var chunkDictionary:Dictionary;
+		private var indexDictionary:Dictionary;
 
 
 
@@ -66,34 +66,34 @@ package com.falanxia.emitor.providers {
 		 * @param assetsConfigIndex LibrariumItem name of the config, "config.json" by default
 		 * @param logFunction Logging function. Set to {@code null} to disable logging (disabled by default)
 		 */
-		public function LibrariumAssetProvider(contentURL:String, assetsConfigIndex:String = _ASSETS_CONFIG_INDEX,
+		public function LibrariumAssetProvider(contentURL:String, assetsConfigIndex:String = ASSETS_CONFIG_INDEX,
 		                                       logFunction:Function = null) {
 			super();
 
 			// store varialbes
-			_contentURL = contentURL;
-			_assetsConfigIndex = assetsConfigIndex;
-			_chunkDictionary = new Dictionary();
-			_indexDictionary = new Dictionary();
-			_chunkLoadCounter = 0;
+			this.contentURL = contentURL;
+			this.assetsConfigIndex = assetsConfigIndex;
+			this.chunkDictionary = new Dictionary();
+			this.indexDictionary = new Dictionary();
+			this.chunkLoadCounter = 0;
 			_isActive = true;
 
 			// create a new librarium stream
-			_librarium = new Librarium(logFunction);
+			librarium = new Librarium(logFunction);
 
 			// add event listeners
-			_librarium.addEventListener(Event.COMPLETE, _onLibrariumComplete, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.IO_ERROR, _onLibrariumError, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.SECURITY_ERROR, _onLibrariumError, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.DECOMPRESSION_ERROR, _onLibrariumError, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.INVALID_FILE_ERROR, _onLibrariumError, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.UNSUPPORTED_VERSION_ERROR, _onLibrariumError, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, _onLibrariumError, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, _onLibrariumError, false, 0, true);
-			_librarium.addEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, _onLibrariumError, false, 0, true);
+			librarium.addEventListener(Event.COMPLETE, onLibrariumComplete, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.IO_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.SECURITY_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.DECOMPRESSION_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.INVALID_FILE_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.UNSUPPORTED_VERSION_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError, false, 0, true);
 
 			// load FAR and config item
-			_librarium.loadURL(_contentURL);
+			librarium.loadURL(contentURL);
 		}
 
 
@@ -104,18 +104,18 @@ package com.falanxia.emitor.providers {
 		override public function destroy():void {
 			if(_isActive) {
 				// remove event listeners
-				_librarium.addEventListener(Event.COMPLETE, _onLibrariumComplete, false, 0, true);
-				_librarium.addEventListener(LibrariumErrorEvent.IO_ERROR, _onLibrariumError);
-				_librarium.addEventListener(LibrariumErrorEvent.SECURITY_ERROR, _onLibrariumError);
-				_librarium.addEventListener(LibrariumErrorEvent.DECOMPRESSION_ERROR, _onLibrariumError);
-				_librarium.addEventListener(LibrariumErrorEvent.INVALID_FILE_ERROR, _onLibrariumError);
-				_librarium.addEventListener(LibrariumErrorEvent.UNSUPPORTED_VERSION_ERROR, _onLibrariumError);
-				_librarium.addEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, _onLibrariumError);
-				_librarium.addEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, _onLibrariumError);
-				_librarium.addEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, _onLibrariumError);
+				librarium.addEventListener(Event.COMPLETE, onLibrariumComplete, false, 0, true);
+				librarium.addEventListener(LibrariumErrorEvent.IO_ERROR, onLibrariumError);
+				librarium.addEventListener(LibrariumErrorEvent.SECURITY_ERROR, onLibrariumError);
+				librarium.addEventListener(LibrariumErrorEvent.DECOMPRESSION_ERROR, onLibrariumError);
+				librarium.addEventListener(LibrariumErrorEvent.INVALID_FILE_ERROR, onLibrariumError);
+				librarium.addEventListener(LibrariumErrorEvent.UNSUPPORTED_VERSION_ERROR, onLibrariumError);
+				librarium.addEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError);
+				librarium.addEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError);
+				librarium.addEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError);
 
 				// destroy librarium
-				_librarium.destroy();
+				librarium.destroy();
 
 				// destroy super
 				super.destroy();
@@ -151,7 +151,7 @@ package com.falanxia.emitor.providers {
 		 * @param eventName Event name
 		 * @param message Event message
 		 */
-		private function _dispatchError(eventName:String, message:String):void {
+		private function dispatchError(eventName:String, message:String):void {
 			_isError = true;
 			_isLoaded = false;
 
@@ -160,7 +160,7 @@ package com.falanxia.emitor.providers {
 
 
 
-		private function _findURLs(asset:Asset, branch:Object):void {
+		private function findURLs(asset:Asset, branch:Object):void {
 			// browse all items in the list
 			for each(var leaf:Object in branch) {
 				// test for the leaf, if it's string, then it *may* contain an URL reference
@@ -169,40 +169,40 @@ package com.falanxia.emitor.providers {
 					// ok, it's a String
 					var index:String = String(leaf);
 
-					if(_librarium.contains(index)) {
+					if(librarium.contains(index)) {
 						// it's a filename, since it's in the librarium archive
 						var isNewChunk:Boolean = true;
 						var isNewIndex:Boolean = true;
 
 						// browse all stored chunks and indexes and test if the chunk is already there
-						if(_chunkDictionary[index] != null) isNewChunk = false;
-						if(_indexDictionary[index] != null) isNewIndex = false;
+						if(chunkDictionary[index] != null) isNewChunk = false;
+						if(indexDictionary[index] != null) isNewIndex = false;
 
 						if(isNewChunk) {
 							// ok, so it's a new chunk
 							var newChunk:Chunk = new Chunk(index);
 
 							// increase counter to test for the last loaded chunk
-							_chunkLoadCounter++;
+							chunkLoadCounter++;
 
 							// add to the list
-							_chunkDictionary[index] = newChunk;
+							chunkDictionary[index] = newChunk;
 						}
 
 						if(isNewIndex) {
 							// ok, so it's a new asset
 							// create a new list of assets if not created before
-							if(_indexDictionary[index] == null) _indexDictionary[index] = new Array();
+							if(indexDictionary[index] == null) indexDictionary[index] = new Array();
 
 							// add it to the list of assets
-							_indexDictionary[index].push(asset);
+							indexDictionary[index].push(asset);
 						}
 					}
 				}
 
 				else if(leaf is Object) {
 					// no, it's an Object, so go deeper
-					_findURLs(asset, leaf);
+					findURLs(asset, leaf);
 				}
 			}
 		}
@@ -212,24 +212,24 @@ package com.falanxia.emitor.providers {
 		/* ★ EVENT LISTENERS ★ */
 
 
-		private function _onItemReady(event:Event):void {
+		private function onItemReady(event:Event):void {
 			var bitmap:Bitmap = Bitmap(event.target);
 
 			// remove all event listeners
-			bitmap.removeEventListener(Event.COMPLETE, _onItemReady);
+			bitmap.removeEventListener(Event.COMPLETE, onItemReady);
 
 
-			for each(var sourceChunk:Chunk in _chunkDictionary) {
+			for each(var sourceChunk:Chunk in chunkDictionary) {
 				if(sourceChunk.bitmap == bitmap) {
-					for each(var asset:Asset in _indexDictionary[sourceChunk.url]) {
+					for each(var asset:Asset in indexDictionary[sourceChunk.url]) {
 						asset.addChunk(sourceChunk);
 					}
 				}
 			}
 
 			// check if all items are loaded
-			--_chunkLoadCounter;
-			if(_chunkLoadCounter == 0) {
+			--chunkLoadCounter;
+			if(chunkLoadCounter == 0) {
 				// all is done
 				_isLoaded = true;
 				dispatchEvent(new Event(Event.COMPLETE));
@@ -238,11 +238,11 @@ package com.falanxia.emitor.providers {
 
 
 
-		private function _onLibrariumComplete(event:Event):void {
+		private function onLibrariumComplete(event:Event):void {
 			if(!_isError) {
 				// find asset config
 				try {
-					_assetsConfig = JSON.decode(_librarium.getItem(_assetsConfigIndex).getString());
+					assetsConfig = JSON.decode(librarium.getItem(assetsConfigIndex).getString());
 				}
 				catch(err:Error) {
 					dispatchEvent(new ProviderErrorEvent(ProviderErrorEvent.CONFIG_PARSING_ERROR, false, false, printf("Librarium Asset Provider: Error parsing config JSON (%s)", err.message)));
@@ -252,36 +252,36 @@ package com.falanxia.emitor.providers {
 
 			if(!_isError) {
 				// find all assets specified in the config
-				for each(var assetConfig:Object in _assetsConfig) {
+				for each(var assetConfig:Object in assetsConfig) {
 					// create new asset
 					// find all URLs referenced by the asset
 					// add it to the list for future reference
 					var newAsset:Asset = new Asset(assetConfig.id, assetConfig);
-					_findURLs(newAsset, assetConfig);
+					findURLs(newAsset, assetConfig);
 					_assetsDictionary[assetConfig.id] = newAsset;
 				}
 			}
 
 			if(!_isError) {
 				// find all chunks previously found by the _findURLs() method
-				for each(var chunk:Chunk in _chunkDictionary) {
+				for each(var chunk:Chunk in chunkDictionary) {
 					// chunk index contains even the prefix (like this:),
 					// but itemHelper.index contains just index
 					// hence we need to strip it this way
 
 					// add event listener
-					chunk.bitmap.addEventListener(Event.COMPLETE, _onItemReady, false, 0, true);
+					chunk.bitmap.addEventListener(Event.COMPLETE, onItemReady, false, 0, true);
 
 					// and assign a bitmap to the chunk
-					_librarium.getItem(chunk.url).assignToBitmap(chunk.bitmap);
+					librarium.getItem(chunk.url).assignToBitmap(chunk.bitmap);
 				}
 			}
 		}
 
 
 
-		private function _onLibrariumError(event:LibrariumErrorEvent):void {
-			_dispatchError(ProviderErrorEvent.PROVIDER_ERROR, printf("LibrariumAssetProvider error: %s", event.text));
+		private function onLibrariumError(event:LibrariumErrorEvent):void {
+			dispatchError(ProviderErrorEvent.PROVIDER_ERROR, printf("LibrariumAssetProvider error: %s", event.text));
 		}
 	}
 }
