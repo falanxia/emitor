@@ -104,21 +104,31 @@ package com.falanxia.emitor.providers {
 		override public function destroy():void {
 			if(_isActive) {
 				// remove event listeners
-				librarium.addEventListener(Event.COMPLETE, onLibrariumComplete, false, 0, true);
-				librarium.addEventListener(LibrariumErrorEvent.IO_ERROR, onLibrariumError);
-				librarium.addEventListener(LibrariumErrorEvent.SECURITY_ERROR, onLibrariumError);
-				librarium.addEventListener(LibrariumErrorEvent.DECOMPRESSION_ERROR, onLibrariumError);
-				librarium.addEventListener(LibrariumErrorEvent.INVALID_FILE_ERROR, onLibrariumError);
-				librarium.addEventListener(LibrariumErrorEvent.UNSUPPORTED_VERSION_ERROR, onLibrariumError);
-				librarium.addEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError);
-				librarium.addEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError);
-				librarium.addEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError);
+				librarium.removeEventListener(Event.COMPLETE, onLibrariumComplete);
+				librarium.removeEventListener(LibrariumErrorEvent.IO_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.SECURITY_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.DECOMPRESSION_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.INVALID_FILE_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.UNSUPPORTED_VERSION_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError);
 
 				// destroy librarium
 				librarium.destroy();
 
 				// destroy super
 				super.destroy();
+
+				// destroy chunks
+				for each(var chunk:Chunk in chunkDictionary) chunk.destroy();
+
+				contentURL = null;
+				librarium = null;
+				assetsConfig = null;
+				assetsConfigIndex = null;
+				chunkDictionary = null;
+				indexDictionary = null;
 			}
 		}
 

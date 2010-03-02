@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 package com.falanxia.emitor.providers {
+	import com.falanxia.emitor.Asset;
 	import com.falanxia.emitor.interfaces.IAssetProvider;
 
 	import flash.events.EventDispatcher;
@@ -70,6 +71,12 @@ package com.falanxia.emitor.providers {
 				_isActive = false;
 				_isLoaded = false;
 			}
+
+			for each(var asset:Asset in _assetsDictionary) {
+				asset.destroy();
+			}
+
+			_assetsDictionary = null;
 		}
 
 

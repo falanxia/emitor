@@ -51,6 +51,21 @@ package com.falanxia.emitor {
 
 
 
+		/**
+		 * Destroys {@code Chunk} instance and frees it for GC.
+		 */
+		public function destroy():void {
+			if(_bitmap != null && _bitmap.bitmapData != null) {
+				_bitmap.bitmapData.dispose();
+				_bitmap.bitmapData = null;
+			}
+
+			_url = null;
+			_bitmap = null;
+		}
+
+
+
 		/* ★ SETTERS & GETTERS ★ */
 
 

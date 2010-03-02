@@ -54,6 +54,21 @@ package com.falanxia.emitor {
 
 
 		/**
+		 * Destroys {@code Asset} instance and frees it for GC.
+		 */
+		public function destroy():void {
+			for each(var c:Chunk in _chunksList) {
+				c.destroy();
+			}
+
+			_id = null;
+			_config = null;
+			_chunksList = null;
+		}
+
+
+
+		/**
 		 * Add a chunk.
 		 * @param chunk {@code Chunk}
 		 * @throws {@code Error} if {@code Chunk} with this url already added
