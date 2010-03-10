@@ -32,8 +32,11 @@ package com.falanxia.emitor.providers {
 	import com.falanxia.librarium.events.LibrariumErrorEvent;
 	import com.falanxia.utilitaris.helpers.printf;
 
+	import de.dev_lab.logging.Logger;
+
 	import flash.display.Bitmap;
 	import flash.events.Event;
+	import flash.events.ProgressEvent;
 	import flash.utils.Dictionary;
 
 
@@ -91,6 +94,7 @@ package com.falanxia.emitor.providers {
 			librarium.addEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError, false, 0, true);
 			librarium.addEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError, false, 0, true);
 			librarium.addEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(ProgressEvent.PROGRESS, onLibrariumProgress, false, 0, true);
 
 			// load FAR and config item
 			librarium.loadURL(contentURL);
@@ -113,6 +117,7 @@ package com.falanxia.emitor.providers {
 				librarium.removeEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError);
 				librarium.removeEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError);
 				librarium.removeEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError);
+				librarium.removeEventListener(ProgressEvent.PROGRESS, onLibrariumProgress);
 
 				// destroy librarium
 				librarium.destroy();
@@ -292,6 +297,12 @@ package com.falanxia.emitor.providers {
 
 		private function onLibrariumError(event:LibrariumErrorEvent):void {
 			dispatchError(ProviderErrorEvent.PROVIDER_ERROR, printf("LibrariumAssetProvider error: %s", event.text));
+		}
+
+
+
+		private function onLibrariumProgress(event:ProgressEvent):void {
+			dispatchEvent(event.clone());
 		}
 	}
 }
