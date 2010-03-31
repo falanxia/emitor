@@ -210,10 +210,10 @@ package com.falanxia.emitor.providers {
 							// ok, so it's a new asset
 							// create a new list of assets if not created before
 							if(indexDictionary[index] == null) indexDictionary[index] = new Array();
-
-							// add it to the list of assets
-							indexDictionary[index].push(asset);
 						}
+						
+						// add it to the list of assets
+						indexDictionary[index].push(asset);
 					}
 				}
 
