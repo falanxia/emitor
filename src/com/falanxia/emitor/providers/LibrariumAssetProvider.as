@@ -211,7 +211,7 @@ package com.falanxia.emitor.providers {
 							// create a new list of assets if not created before
 							if(indexDictionary[index] == null) indexDictionary[index] = new Array();
 						}
-						
+
 						// add it to the list of assets
 						indexDictionary[index].push(asset);
 					}
@@ -229,8 +229,8 @@ package com.falanxia.emitor.providers {
 		/* ★ EVENT LISTENERS ★ */
 
 
-		private function onItemReady(event:Event):void {
-			var bitmap:Bitmap = Bitmap(event.target);
+		private function onItemReady(e:Event):void {
+			var bitmap:Bitmap = Bitmap(e.target);
 
 			// remove all event listeners
 			bitmap.removeEventListener(Event.COMPLETE, onItemReady);
@@ -255,7 +255,7 @@ package com.falanxia.emitor.providers {
 
 
 
-		private function onLibrariumComplete(event:Event):void {
+		private function onLibrariumComplete(e:Event):void {
 			if(!_isError) {
 				// find asset config
 				try {
@@ -297,14 +297,14 @@ package com.falanxia.emitor.providers {
 
 
 
-		private function onLibrariumError(event:LibrariumErrorEvent):void {
-			dispatchError(ProviderErrorEvent.PROVIDER_ERROR, printf("LibrariumAssetProvider error: %s", event.text));
+		private function onLibrariumError(e:LibrariumErrorEvent):void {
+			dispatchError(ProviderErrorEvent.PROVIDER_ERROR, printf("LibrariumAssetProvider error: %s", e.text));
 		}
 
 
 
-		private function onLibrariumProgress(event:ProgressEvent):void {
-			dispatchEvent(event.clone());
+		private function onLibrariumProgress(e:ProgressEvent):void {
+			dispatchEvent(e.clone());
 		}
 	}
 }
