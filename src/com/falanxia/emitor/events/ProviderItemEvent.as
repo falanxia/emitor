@@ -41,7 +41,7 @@ package com.falanxia.emitor.events {
 
 
 		/** Item was successfully loaded */
-		public static const ITEM_LOADED:String = "ItemLoaded";
+		public static const ITEM_LOADED:String = "itemLoaded";
 
 		public var asset:Asset;
 

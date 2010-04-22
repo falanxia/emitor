@@ -40,16 +40,16 @@ package com.falanxia.emitor.events {
 
 
 		/** Provider error */
-		public static const PROVIDER_ERROR:String = "ProviderError";
+		public static const PROVIDER_ERROR:String = "providerError";
 
 		/** Item not found */
-		public static const ITEM_NOT_FOUND:String = "ItemNotFound";
+		public static const ITEM_NOT_FOUND:String = "itemNotFound";
 
 		/** Item load failed */
-		public static const ITEM_LOAD_FAILED:String = "ItemLoadFailed";
+		public static const ITEM_LOAD_FAILED:String = "itemLoadFailed";
 
 		/** Config parsing error */
-		public static const CONFIG_PARSING_ERROR:String = "ConfigParsingError";
+		public static const CONFIG_PARSING_ERROR:String = "configParsingError";
 
 
 
