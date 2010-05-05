@@ -34,8 +34,6 @@ package com.falanxia.emitor.providers {
 	import com.falanxia.librarium.events.LibrariumErrorEvent;
 	import com.falanxia.utilitaris.helpers.printf;
 
-	import de.dev_lab.logging.Logger;
-
 	import flash.display.Bitmap;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
@@ -96,6 +94,7 @@ package com.falanxia.emitor.providers {
 			librarium.addEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError, false, 0, true);
 			librarium.addEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError, false, 0, true);
 			librarium.addEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError, false, 0, true);
+			librarium.addEventListener(LibrariumErrorEvent.ADD_CHUNK_ERROR, onLibrariumError, false, 0, true);
 			librarium.addEventListener(ProgressEvent.PROGRESS, onLibrariumProgress, false, 0, true);
 
 			// load FAR and config item
@@ -119,6 +118,7 @@ package com.falanxia.emitor.providers {
 				librarium.removeEventListener(LibrariumErrorEvent.PARSE_METADATA_ERROR, onLibrariumError);
 				librarium.removeEventListener(LibrariumErrorEvent.PARSE_INDEX_ERROR, onLibrariumError);
 				librarium.removeEventListener(LibrariumErrorEvent.PREPARE_DATA_ERROR, onLibrariumError);
+				librarium.removeEventListener(LibrariumErrorEvent.ADD_CHUNK_ERROR, onLibrariumError);
 				librarium.removeEventListener(ProgressEvent.PROGRESS, onLibrariumProgress);
 
 				// destroy librarium
@@ -217,9 +217,11 @@ package com.falanxia.emitor.providers {
 					}
 				}
 
-				else if(leaf is Object) {
-					// no, it's an Object, so go deeper
-					findURLs(asset, leaf);
+				else {
+					if(leaf is Object) {
+						// no, it's an Object, so go deeper
+						findURLs(asset, leaf);
+					}
 				}
 			}
 		}
@@ -239,7 +241,13 @@ package com.falanxia.emitor.providers {
 			for each(var sourceChunk:Chunk in chunkDictionary) {
 				if(sourceChunk.bitmap == bitmap) {
 					for each(var asset:Asset in indexDictionary[sourceChunk.url]) {
-						asset.addChunk(sourceChunk);
+						try {
+							asset.addChunk(sourceChunk);
+						}
+						catch(err:Error) {
+							dispatchEvent(new LibrariumErrorEvent(LibrariumErrorEvent.DECOMPRESSION_ERROR, false, false, err.message));
+							_isError = true;
+						}
 					}
 				}
 			}
