@@ -23,8 +23,7 @@
  */
 
 package com.falanxia.emitor.events {
-	import flash.events.ErrorEvent;
-	import flash.events.Event;
+	import flash.events.*;
 
 
 

@@ -23,12 +23,12 @@
  */
 
 package com.falanxia.emitor.globals {
-	import com.falanxia.emitor.Asset;
-	import com.falanxia.emitor.interfaces.IAssetProvider;
-	import com.falanxia.utilitaris.helpers.printf;
+	import com.falanxia.emitor.*;
+	import com.falanxia.emitor.interfaces.*;
+	import com.falanxia.utilitaris.helpers.*;
 
-	import flash.events.EventDispatcher;
-	import flash.utils.Dictionary;
+	import flash.events.*;
+	import flash.utils.*;
 
 
 
@@ -54,8 +54,12 @@ package com.falanxia.emitor.globals {
 		 * @see IAssetProvider
 		 */
 		public static function attachProvider(provider:IAssetProvider):void {
-			if(_provider == null) _provider = provider;
-			else throw new Error("Asset provider already attached");
+			if(_provider == null) {
+				_provider = provider;
+			}
+			else {
+				throw new Error("Asset provider already attached");
+			}
 		}
 
 
@@ -69,7 +73,9 @@ package com.falanxia.emitor.globals {
 		public static function getAsset(id:String):* {
 			var out:Asset;
 
-			if(_provider == null) throw new Error("Asset provider not attached");
+			if(_provider == null) {
+				throw new Error("Asset provider not attached");
+			}
 
 			else {
 				for each(var item:Asset in _provider.assetsDictionary) {
@@ -89,7 +95,9 @@ package com.falanxia.emitor.globals {
 		public static function toString():String {
 			var out:String;
 
-			if(_provider == null) out = "AssetManager info:\n  provider not attached";
+			if(_provider == null) {
+				out = "AssetManager info:\n  provider not attached";
+			}
 
 			else {
 				// create list of assets
@@ -119,7 +127,9 @@ package com.falanxia.emitor.globals {
 		 * @throws {@code Error} if {@code Asset} provider not attached
 		 */
 		public static function get assetsDictionary():Dictionary {
-			if(_provider == null) throw new Error("Asset provider not attached");
+			if(_provider == null) {
+				throw new Error("Asset provider not attached");
+			}
 
 			else {
 				// return asset list
@@ -147,8 +157,12 @@ package com.falanxia.emitor.globals {
 		public static function get isError():Boolean {
 			var out:Boolean;
 
-			if(_provider == null) out = false;
-			else out = _provider.isError;
+			if(_provider == null) {
+				out = false;
+			}
+			else {
+				out = _provider.isError;
+			}
 
 			return out;
 		}
@@ -162,8 +176,12 @@ package com.falanxia.emitor.globals {
 		public static function get isActive():Boolean {
 			var out:Boolean;
 
-			if(_provider == null) out = false;
-			else out = _provider.isActive;
+			if(_provider == null) {
+				out = false;
+			}
+			else {
+				out = _provider.isActive;
+			}
 
 			return out;
 		}
@@ -177,8 +195,12 @@ package com.falanxia.emitor.globals {
 		public static function get isLoaded():Boolean {
 			var out:Boolean;
 
-			if(_provider == null) out = false;
-			else out = _provider.isLoaded;
+			if(_provider == null) {
+				out = false;
+			}
+			else {
+				out = _provider.isLoaded;
+			}
 
 			return out;
 		}

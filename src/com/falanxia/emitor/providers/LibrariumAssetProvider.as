@@ -24,20 +24,17 @@
 
 
 package com.falanxia.emitor.providers {
-	import com.falanxia.emitor.Asset;
-	import com.falanxia.emitor.Chunk;
-	import com.falanxia.emitor.events.ProviderErrorEvent;
-	import com.falanxia.emitor.events.ProviderItemEvent;
-	import com.falanxia.emitor.interfaces.IAssetProvider;
-	import com.falanxia.jsonora.JSON;
-	import com.falanxia.librarium.Librarium;
-	import com.falanxia.librarium.events.LibrariumErrorEvent;
-	import com.falanxia.utilitaris.helpers.printf;
+	import com.falanxia.emitor.*;
+	import com.falanxia.emitor.events.*;
+	import com.falanxia.emitor.interfaces.*;
+	import com.falanxia.jsonora.*;
+	import com.falanxia.librarium.*;
+	import com.falanxia.librarium.events.*;
+	import com.falanxia.utilitaris.helpers.*;
 
-	import flash.display.Bitmap;
-	import flash.events.Event;
-	import flash.events.ProgressEvent;
-	import flash.utils.Dictionary;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.utils.*;
 
 
 

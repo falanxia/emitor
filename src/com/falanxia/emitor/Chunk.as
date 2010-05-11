@@ -23,7 +23,7 @@
  */
 
 package com.falanxia.emitor {
-	import flash.display.Bitmap;
+	import flash.display.*;
 
 
 

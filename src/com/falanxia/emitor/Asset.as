@@ -23,7 +23,7 @@
  */
 
 package com.falanxia.emitor {
-	import com.falanxia.utilitaris.helpers.printf;
+	import com.falanxia.utilitaris.helpers.*;
 
 
 
