@@ -22,8 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.falanxia.emitor.globals {
-	import com.falanxia.emitor.*;
+package com.falanxia.emitor {
 	import com.falanxia.emitor.interfaces.*;
 	import com.falanxia.utilitaris.helpers.*;
 
@@ -115,7 +114,7 @@ package com.falanxia.emitor.globals {
 		 * @return {@code Asset} (if defined, {@code null} if not)
 		 * @throws {@code Error} if {@code Asset} provider not attached
 		 */
-		public function getAsset(id:String):* {
+		public function getAsset(id:String):Asset {
 			var out:Asset;
 
 			if(_provider == null) {
@@ -217,7 +216,7 @@ package com.falanxia.emitor.globals {
 
 		/**
 		 * Is AssetManager active?
-		 * @return AssetManager active flag
+		 * @return com.falanxia.emitor.AssetManager active flag
 		 */
 		public function get isActive():Boolean {
 			return (_provider == null) ? false : _provider.isActive;
