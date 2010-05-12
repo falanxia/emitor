@@ -48,9 +48,10 @@ package com.falanxia.emitor.providers {
 	public class LibrariumAssetProvider extends AssetProvider implements IAssetProvider {
 
 
-		private static const ASSETS_CONFIG_INDEX:String = "config.json";
+		public static const DEFAULT_ASSETS_CONFIG_INDEX:String = "config.json";
 
-		private var contentURL:String;
+		private var _url:String;
+
 		private var librarium:Librarium;
 		private var chunkLoadCounter:uint;
 		private var assetsConfig:Object;
@@ -62,20 +63,21 @@ package com.falanxia.emitor.providers {
 
 		/**
 		 * Constructor.
-		 * @param contentURL Librarium archive URL
+		 * @param url Librarium archive URL
 		 * @param assetsConfigIndex LibrariumItem name of the config, "config.json" by default
 		 * @param logFunction Logging function. Set to {@code null} to disable logging (disabled by default)
 		 */
-		public function LibrariumAssetProvider(contentURL:String, assetsConfigIndex:String = ASSETS_CONFIG_INDEX,
+		public function LibrariumAssetProvider(url:String, assetsConfigIndex:String = DEFAULT_ASSETS_CONFIG_INDEX,
 		                                       logFunction:Function = null) {
 			super();
 
 			// store varialbes
-			this.contentURL = contentURL;
 			this.assetsConfigIndex = assetsConfigIndex;
 			this.chunkDictionary = new Dictionary();
 			this.indexDictionary = new Dictionary();
 			this.chunkLoadCounter = 0;
+
+			_url = url;
 			_isActive = true;
 
 			// create a new librarium stream
@@ -95,7 +97,7 @@ package com.falanxia.emitor.providers {
 			librarium.addEventListener(ProgressEvent.PROGRESS, onLibrariumProgress, false, 0, true);
 
 			// load FAR and config item
-			librarium.loadURL(contentURL);
+			librarium.loadURL(url);
 		}
 
 
@@ -127,7 +129,7 @@ package com.falanxia.emitor.providers {
 				// destroy chunks
 				for each(var chunk:Chunk in chunkDictionary) chunk.destroy();
 
-				contentURL = null;
+				_url = null;
 				librarium = null;
 				assetsConfig = null;
 				assetsConfigIndex = null;
@@ -153,6 +155,19 @@ package com.falanxia.emitor.providers {
 			}
 
 			return asset;
+		}
+
+
+
+		/* ★ SETTERS & GETTERS ★ */
+
+
+		/**
+		 * Get {@code AssetProvider} URL.
+		 * @return {@code AssetProvider} URL
+		 */
+		public function get url():String {
+			return _url;
 		}
 
 
@@ -234,7 +249,6 @@ package com.falanxia.emitor.providers {
 			// remove all event listeners
 			bitmap.removeEventListener(Event.COMPLETE, onItemReady);
 
-
 			for each(var sourceChunk:Chunk in chunkDictionary) {
 				if(sourceChunk.bitmap == bitmap) {
 					for each(var asset:Asset in indexDictionary[sourceChunk.url]) {
@@ -254,6 +268,7 @@ package com.falanxia.emitor.providers {
 			if(chunkLoadCounter == 0) {
 				// all is done
 				_isLoaded = true;
+
 				dispatchEvent(new Event(Event.COMPLETE));
 			}
 		}

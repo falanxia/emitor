@@ -43,23 +43,68 @@ package com.falanxia.emitor.globals {
 	public class AssetManager extends EventDispatcher {
 
 
-		private static var _provider:IAssetProvider;
+		private static var allAssetManagerList:Dictionary;
+
+		private static var _lastAssetManagerID:String;
+
+		private var _provider:IAssetProvider;
+		private var _id:String;
 
 
 
 		/**
-		 * Attach a {@code Provider}.
+		 * Get an {@code AssetManager} by its ID.
+		 * @param id
+		 * @return
+		 */
+		public static function getAssetManager(id:String):AssetManager {
+			var assetManager:Object = allAssetManagerList[id];
+
+			_lastAssetManagerID = id;
+
+			return (assetManager == null) ? null : AssetManager(assetManager);
+		}
+
+
+
+		/**
+		 * Get last {@code AssetManager} ID.
+		 * @return Last {@code AssetManager} ID
+		 */
+		public static function get lastAssetManagerID():String {
+			return _lastAssetManagerID;
+		}
+
+
+
+		/**
+		 * Create an instance of {@code AssetManager} and attach a {@code Provider}.
+		 * @param id {@code AssetManager} ID
 		 * @param provider {@code Provider} to be attached
-		 * @throws {@code Error} if {@code Asset} provider already attached
 		 * @see IAssetProvider
 		 */
-		public static function attachProvider(provider:IAssetProvider):void {
-			if(_provider == null) {
-				_provider = provider;
+		public function AssetManager(id:String, provider:IAssetProvider) {
+			if(allAssetManagerList == null) {
+				allAssetManagerList = new Dictionary(true);
+				_lastAssetManagerID = id;
 			}
-			else {
-				throw new Error("Asset provider already attached");
-			}
+
+			allAssetManagerList[id] = this;
+
+			_id = id;
+			_provider = provider;
+		}
+
+
+
+		/**
+		 * Destructor.
+		 */
+		public function destroy():void {
+			delete allAssetManagerList[_id];
+
+			_provider.destroy();
+			_id = null;
 		}
 
 
@@ -70,7 +115,7 @@ package com.falanxia.emitor.globals {
 		 * @return {@code Asset} (if defined, {@code null} if not)
 		 * @throws {@code Error} if {@code Asset} provider not attached
 		 */
-		public static function getAsset(id:String):* {
+		public function getAsset(id:String):* {
 			var out:Asset;
 
 			if(_provider == null) {
@@ -92,7 +137,7 @@ package com.falanxia.emitor.globals {
 		 * Generate {@code AssetManager} description.
 		 * @return {@code AssetManager} description
 		 */
-		public static function toString():String {
+		override public function toString():String {
 			var out:String;
 
 			if(_provider == null) {
@@ -126,7 +171,7 @@ package com.falanxia.emitor.globals {
 		 * @return {@code Dictionary} of assets as Array
 		 * @throws {@code Error} if {@code Asset} provider not attached
 		 */
-		public static function get assetsDictionary():Dictionary {
+		public function get assetsDictionary():Dictionary {
 			if(_provider == null) {
 				throw new Error("Asset provider not attached");
 			}
@@ -140,11 +185,21 @@ package com.falanxia.emitor.globals {
 
 
 		/**
+		 * Get {@code AssetManager} ID.
+		 * @return {@code AssetManager} ID
+		 */
+		public function get id():String {
+			return _id;
+		}
+
+
+
+		/**
 		 * Get pointer to {@code Asset} provider.
 		 * @return {@code Asset} provider (if attached, {@code null} if not)
 		 * @see IAssetProvider
 		 */
-		public static function get provider():IAssetProvider {
+		public function get provider():IAssetProvider {
 			return _provider;
 		}
 
@@ -154,17 +209,8 @@ package com.falanxia.emitor.globals {
 		 * Has an {@code Error} happened?
 		 * @return {@code Error} happened flag
 		 */
-		public static function get isError():Boolean {
-			var out:Boolean;
-
-			if(_provider == null) {
-				out = false;
-			}
-			else {
-				out = _provider.isError;
-			}
-
-			return out;
+		public function get isError():Boolean {
+			return (_provider == null) ? false : _provider.isError;
 		}
 
 
@@ -173,17 +219,8 @@ package com.falanxia.emitor.globals {
 		 * Is AssetManager active?
 		 * @return AssetManager active flag
 		 */
-		public static function get isActive():Boolean {
-			var out:Boolean;
-
-			if(_provider == null) {
-				out = false;
-			}
-			else {
-				out = _provider.isActive;
-			}
-
-			return out;
+		public function get isActive():Boolean {
+			return (_provider == null) ? false : _provider.isActive;
 		}
 
 
@@ -192,17 +229,8 @@ package com.falanxia.emitor.globals {
 		 * Is everything loaded?
 		 * @return Loaded flag
 		 */
-		public static function get isLoaded():Boolean {
-			var out:Boolean;
-
-			if(_provider == null) {
-				out = false;
-			}
-			else {
-				out = _provider.isLoaded;
-			}
-
-			return out;
+		public function get isLoaded():Boolean {
+			return (_provider == null) ? false : _provider.isLoaded;
 		}
 	}
 }
