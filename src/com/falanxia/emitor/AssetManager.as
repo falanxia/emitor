@@ -44,7 +44,7 @@ package com.falanxia.emitor {
 
 		private static var allAssetManagerList:Dictionary;
 
-		private static var _lastAssetManagerID:String;
+		private static var _defaultAssetManagerID:String;
 
 		private var _provider:IAssetProvider;
 		private var _id:String;
@@ -59,19 +59,27 @@ package com.falanxia.emitor {
 		public static function getAssetManager(id:String):AssetManager {
 			var assetManager:Object = allAssetManagerList[id];
 
-			_lastAssetManagerID = id;
-
 			return (assetManager == null) ? null : AssetManager(assetManager);
 		}
 
 
 
 		/**
-		 * Get last {@code AssetManager} ID.
-		 * @return Last {@code AssetManager} ID
+		 * Get default {@code AssetManager} ID.
+		 * @return Default {@code AssetManager} ID
 		 */
-		public static function get lastAssetManagerID():String {
-			return _lastAssetManagerID;
+		public static function get defaultAssetManagerID():String {
+			return _defaultAssetManagerID;
+		}
+
+
+
+		/**
+		 * Set default {@code AssetManager} ID.
+		 * @param value Default {@code AssetManager} ID
+		 */
+		public static function set defaultAssetManagerID(value:String):void {
+			_defaultAssetManagerID = value;
 		}
 
 
@@ -85,7 +93,7 @@ package com.falanxia.emitor {
 		public function AssetManager(id:String, provider:IAssetProvider) {
 			if(allAssetManagerList == null) {
 				allAssetManagerList = new Dictionary(true);
-				_lastAssetManagerID = id;
+				_defaultAssetManagerID = id;
 			}
 
 			allAssetManagerList[id] = this;

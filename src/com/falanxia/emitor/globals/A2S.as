@@ -31,7 +31,7 @@ package com.falanxia.emitor.globals {
 
 	/** @todo Comment */
 	public function A2S(id:String, assetManagerID:String = null):* {
-		if(assetManagerID == null) assetManagerID = AssetManager.lastAssetManagerID;
+		if(assetManagerID == null) assetManagerID = AssetManager.defaultAssetManagerID;
 
 		var assetManager:AssetManager = AssetManager.getAssetManager(assetManagerID);
 		var asset:Asset = assetManager.getAsset(id);

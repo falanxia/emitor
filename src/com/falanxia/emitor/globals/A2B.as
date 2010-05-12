@@ -32,7 +32,7 @@ package com.falanxia.emitor.globals {
 
 	/** @todo Comment */
 	public function A2B(id:String, assetManagerID:String = null):BitmapData {
-		if(assetManagerID == null) assetManagerID = AssetManager.lastAssetManagerID;
+		if(assetManagerID == null) assetManagerID = AssetManager.defaultAssetManagerID;
 
 		var assetManager:AssetManager = AssetManager.getAssetManager(assetManagerID);
 		var asset:Asset = assetManager.getAsset(id);
