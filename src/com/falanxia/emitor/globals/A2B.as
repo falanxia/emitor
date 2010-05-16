@@ -38,7 +38,7 @@ package com.falanxia.emitor.globals {
 		var asset:Asset = assetManager.getAsset(id);
 
 		if(asset == null) {
-			throw new Error(printf("Asset \"%s\" is not defined in skin", id));
+			throw new Error(printf("Asset \"%s\" is not defined in skin. This probably means it's not specified in the JSON config file.", id));
 		}
 
 		return asset.getChunkByURL(id).bitmap.bitmapData;
