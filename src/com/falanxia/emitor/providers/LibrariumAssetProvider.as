@@ -288,14 +288,20 @@ package com.falanxia.emitor.providers {
 			}
 
 			if(!_isError) {
-				// find all assets specified in the config
-				for each(var assetConfig:Object in assetsConfig) {
-					// create new asset
-					// find all URLs referenced by the asset
-					// add it to the list for future reference
-					var newAsset:Asset = new Asset(assetConfig.id, assetConfig);
-					findURLs(newAsset, assetConfig);
-					_assetsDictionary[assetConfig.id] = newAsset;
+				// no assets at all?
+				if(assetsConfig.length == 0) {
+					dispatchEvent(new Event(Event.COMPLETE));
+				}
+				else {
+					// find all assets specified in the config
+					for each(var assetConfig:Object in assetsConfig) {
+						// create new asset
+						// find all URLs referenced by the asset
+						// add it to the list for future reference
+						var newAsset:Asset = new Asset(assetConfig.id, assetConfig);
+						findURLs(newAsset, assetConfig);
+						_assetsDictionary[assetConfig.id] = newAsset;
+					}
 				}
 			}
 
