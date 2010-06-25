@@ -68,9 +68,6 @@ package com.falanxia.emitor {
 
 
 
-		/* ★ SETTERS & GETTERS ★ */
-
-
 		/**
 		 * Get Chunk URL.
 		 * @return Chunk URL

@@ -170,9 +170,6 @@ package com.falanxia.emitor {
 
 
 
-		/* ★ SETTERS & GETTERS ★ */
-
-
 		/**
 		 * Get {@code Dictionary} of {@code Asset}s.
 		 * @return {@code Dictionary} of assets as Array

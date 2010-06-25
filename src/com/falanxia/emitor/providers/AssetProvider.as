@@ -83,9 +83,6 @@ package com.falanxia.emitor.providers {
 
 
 
-		/* ★ SETTERS & GETTERS ★ */
-
-
 		/**
 		 * Get {@code Dictionary} of {@code Asset}s as {@code Array}.
 		 * @return {@code Dictionary} of {@code Asset}s

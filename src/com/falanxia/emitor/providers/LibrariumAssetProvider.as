@@ -159,9 +159,6 @@ package com.falanxia.emitor.providers {
 
 
 
-		/* ★ SETTERS & GETTERS ★ */
-
-
 		/**
 		 * Get {@code AssetProvider} URL.
 		 * @return {@code AssetProvider} URL
@@ -170,9 +167,6 @@ package com.falanxia.emitor.providers {
 			return _url;
 		}
 
-
-
-		/* ★ PRIVATE METHODS ★ */
 
 
 		/**
@@ -238,9 +232,6 @@ package com.falanxia.emitor.providers {
 			}
 		}
 
-
-
-		/* ★ EVENT LISTENERS ★ */
 
 
 		private function onItemReady(e:Event):void {

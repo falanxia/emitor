@@ -110,9 +110,6 @@ package com.falanxia.emitor {
 
 
 
-		/* ★ SETTERS & GETTERS ★ */
-
-
 		/**
 		 * Get list of {@code Chunk}s.
 		 * @return List of {@code Chunk}s as an {@code Array}

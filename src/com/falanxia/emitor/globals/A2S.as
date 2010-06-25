@@ -29,12 +29,6 @@ package com.falanxia.emitor.globals {
 
 
 
-	/**
-	 * TODO: Documentation
-	 * @param id
-	 * @param assetManagerID
-	 * @return
-	 */
 	public function A2S(id:String, assetManagerID:String = null):* {
 		if(assetManagerID == null) assetManagerID = AssetManager.defaultAssetManagerID;
 

@@ -30,12 +30,6 @@ package com.falanxia.emitor.globals {
 
 
 
-	/**
-	 * TODO: Documentation
-	 * @param id
-	 * @param assetManagerID
-	 * @return
-	 */
 	public function A2B(id:String, assetManagerID:String = null):BitmapData {
 		if(assetManagerID == null) assetManagerID = AssetManager.defaultAssetManagerID;
 
