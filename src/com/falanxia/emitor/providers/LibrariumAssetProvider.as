@@ -97,7 +97,7 @@ package com.falanxia.emitor.providers {
 			librarium.addEventListener(ProgressEvent.PROGRESS, onLibrariumProgress, false, 0, true);
 
 			// load FAR and config item
-			librarium.loadURL(url);
+			librarium.loadURL(url, false);
 		}
 
 
