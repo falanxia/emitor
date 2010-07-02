@@ -106,6 +106,8 @@ package com.falanxia.emitor.providers {
 		 * Destructor.
 		 */
 		override public function destroy():void {
+			var chunk:Chunk;
+
 			if(_isActive) {
 				// remove event listeners
 				librarium.removeEventListener(Event.COMPLETE, onLibrariumComplete);
@@ -127,7 +129,7 @@ package com.falanxia.emitor.providers {
 				super.destroy();
 
 				// destroy chunks
-				for each(var chunk:Chunk in chunkDictionary) chunk.destroy();
+				for each(chunk in chunkDictionary) chunk.destroy();
 
 				_url = null;
 				librarium = null;
@@ -160,10 +162,11 @@ package com.falanxia.emitor.providers {
 		 */
 		public function getAsset(id:String):Asset {
 			var asset:Asset = _assetsDictionary[id];
+			var e:ProviderItemEvent;
 
 			if(asset != null) {
 				// dispatch en event that the item was loaded
-				var e:ProviderItemEvent = new ProviderItemEvent(ProviderItemEvent.ITEM_LOADED, false, false, asset);
+				e = new ProviderItemEvent(ProviderItemEvent.ITEM_LOADED, false, false, asset);
 				dispatchEvent(e);
 			}
 
@@ -197,18 +200,24 @@ package com.falanxia.emitor.providers {
 
 
 		private function findURLs(asset:Asset, branch:Object):void {
+			var leaf:Object;
+			var index:String;
+			var isNewChunk:Boolean;
+			var isNewIndex:Boolean;
+			var newChunk:Chunk;
+
 			// browse all items in the list
-			for each(var leaf:Object in branch) {
+			for each(leaf in branch) {
 				// test for the leaf, if it's string, then it *may* contain an URL reference
 
 				if(leaf is String) {
 					// ok, it's a String
-					var index:String = String(leaf);
+					index = String(leaf);
 
 					if(librarium.contains(index)) {
 						// it's a filename, since it's in the librarium archive
-						var isNewChunk:Boolean = true;
-						var isNewIndex:Boolean = true;
+						isNewChunk = true;
+						isNewIndex = true;
 
 						// browse all stored chunks and indexes and test if the chunk is already there
 						if(chunkDictionary[index] != null) isNewChunk = false;
@@ -216,7 +225,7 @@ package com.falanxia.emitor.providers {
 
 						if(isNewChunk) {
 							// ok, so it's a new chunk
-							var newChunk:Chunk = new Chunk(index);
+							newChunk = new Chunk(index);
 
 							// increase counter to test for the last loaded chunk
 							chunkLoadCounter++;
@@ -249,13 +258,15 @@ package com.falanxia.emitor.providers {
 
 		private function onItemReady(e:Event):void {
 			var bitmap:Bitmap = Bitmap(e.target);
+			var sourceChunk:Chunk;
+			var asset:Asset;
 
 			// remove all event listeners
 			bitmap.removeEventListener(Event.COMPLETE, onItemReady);
 
-			for each(var sourceChunk:Chunk in chunkDictionary) {
+			for each(sourceChunk in chunkDictionary) {
 				if(sourceChunk.bitmap == bitmap) {
-					for each(var asset:Asset in indexDictionary[sourceChunk.url]) {
+					for each(asset in indexDictionary[sourceChunk.url]) {
 						try {
 							asset.addChunk(sourceChunk);
 						}
@@ -280,6 +291,10 @@ package com.falanxia.emitor.providers {
 
 
 		private function onLibrariumComplete(e:Event):void {
+			var assetConfig:Object;
+			var newAsset:Asset;
+			var chunk:Chunk;
+
 			if(!_isError) {
 				// find asset config
 				try {
@@ -298,11 +313,11 @@ package com.falanxia.emitor.providers {
 				}
 				else {
 					// find all assets specified in the config
-					for each(var assetConfig:Object in assetsConfig) {
+					for each(assetConfig in assetsConfig) {
 						// create new asset
 						// find all URLs referenced by the asset
 						// add it to the list for future reference
-						var newAsset:Asset = new Asset(assetConfig.id, assetConfig);
+						newAsset = new Asset(assetConfig.id, assetConfig);
 						findURLs(newAsset, assetConfig);
 						_assetsDictionary[assetConfig.id] = newAsset;
 					}
@@ -311,7 +326,7 @@ package com.falanxia.emitor.providers {
 
 			if(!_isError) {
 				// find all chunks previously found by the _findURLs() method
-				for each(var chunk:Chunk in chunkDictionary) {
+				for each(chunk in chunkDictionary) {
 					// chunk index contains even the prefix (like this:),
 					// but itemHelper.index contains just index
 					// hence we need to strip it this way

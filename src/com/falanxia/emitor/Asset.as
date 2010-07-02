@@ -59,7 +59,9 @@ package com.falanxia.emitor {
 		 * Destroys {@code Asset} instance and frees it for GC.
 		 */
 		public function destroy():void {
-			for each(var c:Chunk in _chunksList) {
+			var c:Chunk;
+
+			for each(c in _chunksList) {
 				c.destroy();
 			}
 
@@ -77,7 +79,9 @@ package com.falanxia.emitor {
 		 * @see {@code Chunk}
 		 */
 		public function addChunk(chunk:Chunk):void {
-			for each(var c:Chunk in _chunksList) {
+			var c:Chunk;
+
+			for each(c in _chunksList) {
 				if(c.url == chunk.url) {
 					throw new Error(printf("Chunk with URL %s already added", chunk.url));
 				}
@@ -97,9 +101,10 @@ package com.falanxia.emitor {
 		 */
 		public function getChunkByURL(url:String):Chunk {
 			var o:Chunk;
+			var c:Chunk;
 
 			// try to find it in the _chunksList
-			for each(var c:Chunk in _chunksList) {
+			for each(c in _chunksList) {
 				if(c.url == url) o = c;
 			}
 

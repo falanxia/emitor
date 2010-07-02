@@ -69,12 +69,14 @@ package com.falanxia.emitor.providers {
 		 * Destructor.
 		 */
 		public function destroy():void {
+			var asset:Asset;
+
 			if(_isActive) {
 				_isActive = false;
 				_isLoaded = false;
 			}
 
-			for each(var asset:Asset in _assetsDictionary) {
+			for each(asset in _assetsDictionary) {
 				asset.destroy();
 			}
 

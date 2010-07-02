@@ -154,7 +154,9 @@ package com.falanxia.emitor {
 			else {
 				// create list of assets
 				var list:String = "";
-				for each(var i:Asset in _provider.assetsDictionary) {
+				var i:Asset;
+
+				for each(i in _provider.assetsDictionary) {
 					list += i.id + ", ";
 				}
 
@@ -162,6 +164,7 @@ package com.falanxia.emitor {
 				list = list.substr(0, list.length - 2);
 
 				var ps:String = _provider.toString();
+
 				out = printf("AssetManager info:\n  provider=%s\n  registered assets: %s", ps, list);
 			}
 
