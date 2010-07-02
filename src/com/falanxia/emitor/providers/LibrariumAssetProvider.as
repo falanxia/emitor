@@ -51,6 +51,7 @@ package com.falanxia.emitor.providers {
 		public static const DEFAULT_ASSETS_CONFIG_INDEX:String = "config.json";
 
 		private var _url:String;
+		private var _isUncompressEnabled:Boolean;
 
 		private var librarium:Librarium;
 		private var chunkLoadCounter:uint;
@@ -65,10 +66,11 @@ package com.falanxia.emitor.providers {
 		 * Constructor.
 		 * @param url Librarium archive URL
 		 * @param assetsConfigIndex LibrariumItem name of the config, "config.json" by default
+		 * @param isUncompressEnabled {@code true} to uncompress data, {@code false} to keep data compressed (e.g. to save memory), resulting in decompression on demannd (e.g. via getItem().data())
 		 * @param logFunction Logging function. Set to {@code null} to disable logging (disabled by default)
 		 */
 		public function LibrariumAssetProvider(url:String, assetsConfigIndex:String = DEFAULT_ASSETS_CONFIG_INDEX,
-		                                       logFunction:Function = null) {
+		                                       isUncompressEnabled:Boolean = true, logFunction:Function = null) {
 			super();
 
 			// store varialbes
@@ -78,6 +80,7 @@ package com.falanxia.emitor.providers {
 			this.chunkLoadCounter = 0;
 
 			_url = url;
+			_isUncompressEnabled = isUncompressEnabled;
 			_isActive = true;
 
 			// create a new librarium stream
@@ -97,7 +100,7 @@ package com.falanxia.emitor.providers {
 			librarium.addEventListener(ProgressEvent.PROGRESS, onLibrariumProgress, false, 0, true);
 
 			// load FAR and config item
-			librarium.loadURL(url, true);
+			librarium.loadURL(url, _isUncompressEnabled);
 		}
 
 
@@ -298,11 +301,13 @@ package com.falanxia.emitor.providers {
 			var assetConfig:Object;
 			var newAsset:Asset;
 			var chunk:Chunk;
+			var item:LibrariumItem;
 
 			if(!_isError) {
 				// find asset config
 				try {
-					assetsConfig = JSON.decode(librarium.getItem(assetsConfigIndex).getString());
+					item = librarium.getItem(assetsConfigIndex);
+					assetsConfig = JSON.decode(item.getString());
 				}
 				catch(err:Error) {
 					dispatchEvent(new ProviderErrorEvent(ProviderErrorEvent.CONFIG_PARSING_ERROR, false, false, printf("Librarium Asset Provider: Error parsing config JSON (%s)", err.message)));
