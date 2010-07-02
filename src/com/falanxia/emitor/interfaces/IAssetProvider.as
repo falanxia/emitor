@@ -54,6 +54,13 @@ package com.falanxia.emitor.interfaces {
 
 
 		/**
+		 * Dispose source from memory.
+		 */
+		function dispose():void;
+
+
+
+		/**
 		 * Get {@code Dictionary} of {@code Asset}s as {@code Array}.
 		 * @return {@code Dictionary} of {@code Asset}s
 		 */
@@ -82,5 +89,7 @@ package com.falanxia.emitor.interfaces {
 		 * @return {@code Error} flag
 		 */
 		function get isError():Boolean;
+
+
 	}
 }

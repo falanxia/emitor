@@ -141,6 +141,19 @@ package com.falanxia.emitor.providers {
 
 
 		/**
+		 * Dispose source LBA from memory.
+		 */
+		override public function dispose():void {
+			super.dispose();
+
+			librarium.destroy();
+
+			librarium = null;
+		}
+
+
+
+		/**
 		 * Get an {@code Asset} from the provider.
 		 * @param id {@code Asset} ID
 		 * @return {@code Asset} (if found, {@code null} if not)

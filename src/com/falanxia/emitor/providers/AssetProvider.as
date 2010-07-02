@@ -84,6 +84,14 @@ package com.falanxia.emitor.providers {
 
 
 		/**
+		 * Dispose source from memory.
+		 */
+		public function dispose():void {
+		}
+
+
+
+		/**
 		 * Get {@code Dictionary} of {@code Asset}s as {@code Array}.
 		 * @return {@code Dictionary} of {@code Asset}s
 		 */
