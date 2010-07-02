@@ -214,34 +214,38 @@ package com.falanxia.emitor.providers {
 					// ok, it's a String
 					index = String(leaf);
 
-					if(librarium.contains(index)) {
-						// it's a filename, since it's in the librarium archive
-						isNewChunk = true;
-						isNewIndex = true;
+					if(index.charAt(0) == "@") {
+						index = index.substr(1);
 
-						// browse all stored chunks and indexes and test if the chunk is already there
-						if(chunkDictionary[index] != null) isNewChunk = false;
-						if(indexDictionary[index] != null) isNewIndex = false;
+						if(librarium.contains(index)) {
+							// it's a filename, since it's in the librarium archive
+							isNewChunk = true;
+							isNewIndex = true;
 
-						if(isNewChunk) {
-							// ok, so it's a new chunk
-							newChunk = new Chunk(index);
+							// browse all stored chunks and indexes and test if the chunk is already there
+							if(chunkDictionary[index] != null) isNewChunk = false;
+							if(indexDictionary[index] != null) isNewIndex = false;
 
-							// increase counter to test for the last loaded chunk
-							chunkLoadCounter++;
+							if(isNewChunk) {
+								// ok, so it's a new chunk
+								newChunk = new Chunk(index);
 
-							// add to the list
-							chunkDictionary[index] = newChunk;
+								// increase counter to test for the last loaded chunk
+								chunkLoadCounter++;
+
+								// add to the list
+								chunkDictionary[index] = newChunk;
+							}
+
+							if(isNewIndex) {
+								// ok, so it's a new asset
+								// create a new list of assets if not created before
+								if(indexDictionary[index] == null) indexDictionary[index] = new Array();
+							}
+
+							// add it to the list of assets
+							indexDictionary[index].push(asset);
 						}
-
-						if(isNewIndex) {
-							// ok, so it's a new asset
-							// create a new list of assets if not created before
-							if(indexDictionary[index] == null) indexDictionary[index] = new Array();
-						}
-
-						// add it to the list of assets
-						indexDictionary[index].push(asset);
 					}
 				}
 

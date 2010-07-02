@@ -103,6 +103,8 @@ package com.falanxia.emitor {
 			var o:Chunk;
 			var c:Chunk;
 
+			if(url.charAt(0) == "@") url = url.substr(1); // strip the prefix @ from the url to allow LibrariumAssetProvider URL parsing
+
 			// try to find it in the _chunksList
 			for each(c in _chunksList) {
 				if(c.url == url) o = c;
