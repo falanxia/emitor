@@ -32,7 +32,7 @@ package com.falanxia.emitor.providers {
 
 
 	/**
-	 * {@code Asset} {@code Provider} template.
+	 * Asset Provider template.
 	 *
 	 * @author Falanxia (<a href="http://falanxia.com">falanxia.com</a>, <a href="http://twitter.com/falanxia">@falanxia</a>)
 	 * @author Vaclav Vancura @ Falanxia a.s. <vaclav@falanxia.com>
@@ -94,8 +94,8 @@ package com.falanxia.emitor.providers {
 
 
 		/**
-		 * Get {@code Dictionary} of {@code Asset}s as {@code Array}.
-		 * @return {@code Dictionary} of {@code Asset}s
+		 * Get Dictionary of Assets as Array.
+		 * @return Dictionary of Assets
 		 */
 		public function get assetsDictionary():Dictionary {
 			return _assetsDictionary;
@@ -105,7 +105,7 @@ package com.falanxia.emitor.providers {
 
 		/**
 		 * Has an error happened?
-		 * @return {@code Error} flag
+		 * @return Error flag
 		 */
 		public function get isError():Boolean {
 			return _isError;
@@ -114,8 +114,8 @@ package com.falanxia.emitor.providers {
 
 
 		/**
-		 * Is {@code Provider} active?
-		 * @return {@code Provider} active flag
+		 * Is Provider active?
+		 * @return Provider active flag
 		 */
 		public function get isActive():Boolean {
 			return _isActive;
@@ -124,8 +124,8 @@ package com.falanxia.emitor.providers {
 
 
 		/**
-		 * Is {@code Provider} fully loaded?
-		 * @return {@code Provider} loaded flag
+		 * Is Provider fully loaded?
+		 * @return Provider loaded flag
 		 */
 		public function get isLoaded():Boolean {
 			return _isLoaded;

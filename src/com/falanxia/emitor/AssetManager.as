@@ -52,7 +52,7 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get an {@code AssetManager} by its ID.
+		 * Get an AssetManager by its ID.
 		 * @param id
 		 * @return
 		 */
@@ -65,8 +65,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get default {@code AssetManager} ID.
-		 * @return Default {@code AssetManager} ID
+		 * Get default AssetManager ID.
+		 * @return Default AssetManager ID
 		 */
 		public static function get defaultAssetManagerID():String {
 			return _defaultAssetManagerID;
@@ -75,8 +75,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Set default {@code AssetManager} ID.
-		 * @param value Default {@code AssetManager} ID
+		 * Set default AssetManager ID.
+		 * @param value Default AssetManager ID
 		 */
 		public static function set defaultAssetManagerID(value:String):void {
 			_defaultAssetManagerID = value;
@@ -85,9 +85,9 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Create an instance of {@code AssetManager} and attach a {@code Provider}.
-		 * @param id {@code AssetManager} ID
-		 * @param provider {@code Provider} to be attached
+		 * Create an instance of AssetManager and attach a Provider.
+		 * @param id AssetManager ID
+		 * @param provider Provider to be attached
 		 * @see IAssetProvider
 		 */
 		public function AssetManager(id:String, provider:IAssetProvider) {
@@ -117,10 +117,10 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get an {@code Asset}.
-		 * @param id {@code Asset} ID
-		 * @return {@code Asset} (if defined, {@code null} if not)
-		 * @throws {@code Error} if {@code Asset} provider not attached
+		 * Get an Asset.
+		 * @param id Asset ID
+		 * @return Asset (if defined, null if not)
+		 * @throws Error if Asset provider not attached
 		 */
 		public function getAsset(id:String):Asset {
 			var out:Asset;
@@ -141,8 +141,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Generate {@code AssetManager} description.
-		 * @return {@code AssetManager} description
+		 * Generate AssetManager description.
+		 * @return AssetManager description
 		 */
 		override public function toString():String {
 			var out:String;
@@ -174,9 +174,9 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get {@code Dictionary} of {@code Asset}s.
-		 * @return {@code Dictionary} of assets as Array
-		 * @throws {@code Error} if {@code Asset} provider not attached
+		 * Get Dictionary of Assets.
+		 * @return Dictionary of assets as Array
+		 * @throws Error if Asset provider not attached
 		 */
 		public function get assetsDictionary():Dictionary {
 			if(_provider == null) {
@@ -192,8 +192,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get {@code AssetManager} ID.
-		 * @return {@code AssetManager} ID
+		 * Get AssetManager ID.
+		 * @return AssetManager ID
 		 */
 		public function get id():String {
 			return _id;
@@ -202,8 +202,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get pointer to {@code Asset} provider.
-		 * @return {@code Asset} provider (if attached, {@code null} if not)
+		 * Get pointer to Asset provider.
+		 * @return Asset provider (if attached, null if not)
 		 * @see IAssetProvider
 		 */
 		public function get provider():IAssetProvider {
@@ -213,8 +213,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Has an {@code Error} happened?
-		 * @return {@code Error} happened flag
+		 * Has an Error happened?
+		 * @return Error happened flag
 		 */
 		public function get isError():Boolean {
 			return (_provider == null) ? false : _provider.isError;

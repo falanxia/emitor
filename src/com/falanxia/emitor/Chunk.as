@@ -54,7 +54,7 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Destroys {@code Chunk} instance and frees it for GC.
+		 * Destroys Chunk instance and frees it for GC.
 		 */
 		public function destroy():void {
 			if(_bitmap != null && _bitmap.bitmapData != null) {
@@ -79,8 +79,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Set Chunk {@code Bitmap}.
-		 * @param value Chunk {@code Bitmap}
+		 * Set Chunk Bitmap.
+		 * @param value Chunk Bitmap
 		 */
 		public function set bitmap(value:Bitmap):void {
 			_bitmap = value;
@@ -89,8 +89,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get Chunk {@code Bitmap}.
-		 * @return Chunk {@code Bitmap}
+		 * Get Chunk Bitmap.
+		 * @return Chunk Bitmap
 		 */
 		public function get bitmap():Bitmap {
 			return _bitmap;

@@ -56,7 +56,7 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Destroys {@code Asset} instance and frees it for GC.
+		 * Destroys Asset instance and frees it for GC.
 		 */
 		public function destroy():void {
 			var c:Chunk;
@@ -74,9 +74,9 @@ package com.falanxia.emitor {
 
 		/**
 		 * Add a chunk.
-		 * @param chunk {@code Chunk}
-		 * @throws {@code Error} if {@code Chunk} with this url already added
-		 * @see {@code Chunk}
+		 * @param chunk Chunk
+		 * @throws Error if Chunk with this url already added
+		 * @see Chunk
 		 */
 		public function addChunk(chunk:Chunk):void {
 			var c:Chunk;
@@ -94,10 +94,10 @@ package com.falanxia.emitor {
 
 		/**
 		 * Get chunk by its URL.
-		 * @param url {@code Chunk} URL
-		 * @return {@code Chunk} if found, null if not
-		 * @throws {@code Error} if {@code Chunk} with this {@code url} not found is an {@code Asset}
-		 * @see {@code Chunk}
+		 * @param url Chunk URL
+		 * @return Chunk if found, null if not
+		 * @throws Error if Chunk with this url not found is an Asset
+		 * @see Chunk
 		 */
 		public function getChunkByURL(url:String):Chunk {
 			var o:Chunk;
@@ -110,7 +110,10 @@ package com.falanxia.emitor {
 				if(c.url == url) o = c;
 			}
 
-			if(o == null) throw new Error(printf("Chunk with URL '%s' not found in Asset '%s'. This probably means the referenced file ('%s') is not bundled in the LBA archive.", url, _id, url));
+			if(o == null) {
+				throw new Error(printf("Chunk with URL '%s' not found in Asset '%s'. This probably means the referenced file ('%s') is not bundled in the LBA archive.", url, _id,
+				                       url));
+			}
 
 			return o;
 		}
@@ -118,9 +121,9 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get list of {@code Chunk}s.
-		 * @return List of {@code Chunk}s as an {@code Array}
-		 * @see {@code Chunk}
+		 * Get list of Chunks.
+		 * @return List of Chunks as an Array
+		 * @see Chunk
 		 */
 		public function get chunksList():Array {
 			return _chunksList;
@@ -129,9 +132,9 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Set list of {@code Chunk}s.
-		 * @param value List of {@code Chunk}s as {@code Array}
-		 * @see {@code Chunk}
+		 * Set list of Chunks.
+		 * @param value List of Chunks as Array
+		 * @see Chunk
 		 */
 		public function set chunksList(value:Array):void {
 			_chunksList = value;
@@ -140,8 +143,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get {@code Asset} ID.
-		 * @return {@code Asset} ID
+		 * Get Asset ID.
+		 * @return Asset ID
 		 */
 		public function get id():String {
 			return _id;
@@ -150,8 +153,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Get {@code Asset} config.
-		 * @return {@code Asset} config
+		 * Get Asset config.
+		 * @return Asset config
 		 */
 		public function get config():Object {
 			return _config;
@@ -160,8 +163,8 @@ package com.falanxia.emitor {
 
 
 		/**
-		 * Generate {@code Asset} description.
-		 * @return {@code Asset} Description
+		 * Generate Asset description.
+		 * @return Asset Description
 		 */
 		public function toString():String {
 			return printf("Asset id='%s'", id);

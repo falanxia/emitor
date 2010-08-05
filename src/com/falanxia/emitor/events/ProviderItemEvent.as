@@ -48,11 +48,11 @@ package com.falanxia.emitor.events {
 
 
 		/**
-		 * {@code Event} constructor.
-		 * @param type {@code Event} type (see {@code Event} constants)
+		 * Event constructor.
+		 * @param type Event type (see Event constants)
 		 * @param bubbles Bubbles enabled
 		 * @param cancelable Cancel enabled
-		 * @param asset {@code Asset}
+		 * @param asset Asset
 		 * @see Asset
 		 */
 		public function ProviderItemEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, asset:Asset = null) {
@@ -64,8 +64,8 @@ package com.falanxia.emitor.events {
 
 
 		/**
-		 * Clone {@code Event}.
-		 * @return Cloned {@code Event}
+		 * Clone Event.
+		 * @return Cloned Event
 		 */
 		public override function clone():Event {
 			return new ProviderItemEvent(type, bubbles, cancelable, asset);
@@ -74,8 +74,8 @@ package com.falanxia.emitor.events {
 
 
 		/**
-		 * Generate {@code Event} description.
-		 * @return {@code Event} description
+		 * Generate Event description.
+		 * @return Event description
 		 */
 		public override function toString():String {
 			return formatToString("ProviderItemEvent", "type", "bubbles", "cancelable", "asset");

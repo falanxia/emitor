@@ -28,7 +28,7 @@ package com.falanxia.emitor.events {
 
 
 	/**
-	 * Provider {@code ErrorEvent}.
+	 * Provider ErrorEvent.
 	 * Something bad happened.
 	 *
 	 * @author Falanxia (<a href="http://falanxia.com">falanxia.com</a>, <a href="http://twitter.com/falanxia">@falanxia</a>)
@@ -53,11 +53,11 @@ package com.falanxia.emitor.events {
 
 
 		/**
-		 * {@code Event} constructor.
-		 * @param type {@code Event} type (see {@code Event} constants)
+		 * Event constructor.
+		 * @param type Event type (see Event constants)
 		 * @param bubbles Bubbles enabled
 		 * @param cancelable Cancel enabled
-		 * @param text {@code Error} description
+		 * @param text Error description
 		 */
 		public function ProviderErrorEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "") {
 			super(type, bubbles, cancelable, text);
@@ -66,8 +66,8 @@ package com.falanxia.emitor.events {
 
 
 		/**
-		 * Clone {@code Event}.
-		 * @return Cloned {@code Event}
+		 * Clone Event.
+		 * @return Cloned Event
 		 */
 		public override function clone():Event {
 			return new ProviderErrorEvent(type, bubbles, cancelable, text);
@@ -76,8 +76,8 @@ package com.falanxia.emitor.events {
 
 
 		/**
-		 * Generate {@code Event} description.
-		 * @return {@code Event} description
+		 * Generate Event description.
+		 * @return Event description
 		 */
 		public override function toString():String {
 			return formatToString("ProviderErrorEvent", "type", "bubbles", "cancelable", "text");

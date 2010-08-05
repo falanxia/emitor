@@ -66,11 +66,11 @@ package com.falanxia.emitor.providers {
 		 * Constructor.
 		 * @param url Librarium archive URL
 		 * @param assetsConfigIndex LibrariumItem name of the config, "config.json" by default
-		 * @param isUncompressEnabled {@code true} to uncompress data, {@code false} to keep data compressed (e.g. to save memory), resulting in decompression on demannd (e.g. via getItem().data())
-		 * @param logFunction Logging function. Set to {@code null} to disable logging (disabled by default)
+		 * @param isUncompressEnabled true to uncompress data, false to keep data compressed (e.g. to save memory), resulting in decompression on demannd (e.g. via getItem().data())
+		 * @param logFunction Logging function. Set to null to disable logging (disabled by default)
 		 */
-		public function LibrariumAssetProvider(url:String, assetsConfigIndex:String = DEFAULT_ASSETS_CONFIG_INDEX,
-		                                       isUncompressEnabled:Boolean = true, logFunction:Function = null) {
+		public function LibrariumAssetProvider(url:String, assetsConfigIndex:String = DEFAULT_ASSETS_CONFIG_INDEX, isUncompressEnabled:Boolean = true, logFunction:Function = null
+				) {
 			super();
 
 			// store varialbes
@@ -159,9 +159,9 @@ package com.falanxia.emitor.providers {
 
 
 		/**
-		 * Get an {@code Asset} from the provider.
-		 * @param id {@code Asset} ID
-		 * @return {@code Asset} (if found, {@code null} if not)
+		 * Get an Asset from the provider.
+		 * @param id Asset ID
+		 * @return Asset (if found, null if not)
 		 */
 		public function getAsset(id:String):Asset {
 			var asset:Asset = _assetsDictionary[id];
@@ -179,8 +179,8 @@ package com.falanxia.emitor.providers {
 
 
 		/**
-		 * Get {@code AssetProvider} URL.
-		 * @return {@code AssetProvider} URL
+		 * Get AssetProvider URL.
+		 * @return AssetProvider URL
 		 */
 		public function get url():String {
 			return _url;
@@ -189,7 +189,7 @@ package com.falanxia.emitor.providers {
 
 
 		/**
-		 * Dispatch an {@code Error} event.
+		 * Dispatch an Error event.
 		 * @param eventName Event name
 		 * @param message Event message
 		 */
@@ -310,7 +310,8 @@ package com.falanxia.emitor.providers {
 					assetsConfig = JSON.decode(item.getString());
 				}
 				catch(err:Error) {
-					dispatchEvent(new ProviderErrorEvent(ProviderErrorEvent.CONFIG_PARSING_ERROR, false, false, printf("Librarium Asset Provider: Error parsing config JSON (%s)", err.message)));
+					dispatchEvent(new ProviderErrorEvent(ProviderErrorEvent.CONFIG_PARSING_ERROR, false, false,
+					                                     printf("Librarium Asset Provider: Error parsing config JSON (%s)", err.message)));
 					_isError = true;
 				}
 			}

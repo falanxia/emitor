@@ -61,24 +61,24 @@ package com.falanxia.emitor.interfaces {
 
 
 		/**
-		 * Get {@code Dictionary} of {@code Asset}s as {@code Array}.
-		 * @return {@code Dictionary} of {@code Asset}s
+		 * Get Dictionary of Assets as Array.
+		 * @return Dictionary of Assets
 		 */
 		function get assetsDictionary():Dictionary;
 
 
 
 		/**
-		 * Is {@code Provider} active?
-		 * @return {@code Provider} active flag
+		 * Is Provider active?
+		 * @return Provider active flag
 		 */
 		function get isActive():Boolean;
 
 
 
 		/**
-		 * Is {@code Provider} fully loaded?
-		 * @return {@code Provider} loaded flag
+		 * Is Provider fully loaded?
+		 * @return Provider loaded flag
 		 */
 		function get isLoaded():Boolean;
 
@@ -86,7 +86,7 @@ package com.falanxia.emitor.interfaces {
 
 		/**
 		 * Has an error happened?
-		 * @return {@code Error} flag
+		 * @return Error flag
 		 */
 		function get isError():Boolean;
 
