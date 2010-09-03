@@ -25,11 +25,12 @@
 package com.falanxia.emitor.globals {
 	import com.falanxia.emitor.*;
 	import com.falanxia.moderatrix.globals.*;
+	import com.falanxia.moderatrix.interfaces.*;
 	import com.falanxia.utilitaris.helpers.*;
 
 
 
-	public function A2S(id:String, assetManagerID:String = null):* {
+	public function A2S(id:String, assetManagerID:String = null):ISkin {
 		if(assetManagerID == null) assetManagerID = AssetManager.defaultAssetManagerID;
 
 		var assetManager:AssetManager = AssetManager.getAssetManager(assetManagerID);
