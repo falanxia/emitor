@@ -23,11 +23,11 @@
  */
 
 package com.falanxia.emitor.providers {
-	import com.falanxia.emitor.*;
-	import com.falanxia.emitor.interfaces.*;
+	import com.falanxia.emitor.Asset;
+	import com.falanxia.emitor.interfaces.IAssetProvider;
 
-	import flash.events.*;
-	import flash.utils.*;
+	import flash.events.EventDispatcher;
+	import flash.utils.Dictionary;
 
 
 

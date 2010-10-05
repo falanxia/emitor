@@ -23,7 +23,7 @@
  */
 
 package com.falanxia.emitor {
-	import com.falanxia.utilitaris.helpers.*;
+	import com.falanxia.utilitaris.helpers.printf;
 
 
 
@@ -111,8 +111,7 @@ package com.falanxia.emitor {
 			}
 
 			if(o == null) {
-				throw new Error(printf("Chunk with URL '%s' not found in Asset '%s'. This probably means the referenced file ('%s') is not bundled in the LBA archive.", url, _id,
-				                       url));
+				throw new Error(printf("Chunk with URL '%s' not found in Asset '%s'. This probably means the referenced file ('%s') is not bundled in the LBA archive.", url, _id, url));
 			}
 
 			return o;

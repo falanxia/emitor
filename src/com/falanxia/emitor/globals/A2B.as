@@ -23,10 +23,11 @@
  */
 
 package com.falanxia.emitor.globals {
-	import com.falanxia.emitor.*;
-	import com.falanxia.utilitaris.helpers.*;
+	import com.falanxia.emitor.Asset;
+	import com.falanxia.emitor.AssetManager;
+	import com.falanxia.utilitaris.helpers.printf;
 
-	import flash.display.*;
+	import flash.display.BitmapData;
 
 
 

@@ -23,10 +23,11 @@
  */
 
 package com.falanxia.emitor.globals {
-	import com.falanxia.emitor.*;
-	import com.falanxia.moderatrix.globals.*;
-	import com.falanxia.moderatrix.interfaces.*;
-	import com.falanxia.utilitaris.helpers.*;
+	import com.falanxia.emitor.Asset;
+	import com.falanxia.emitor.AssetManager;
+	import com.falanxia.moderatrix.globals.SkinManager;
+	import com.falanxia.moderatrix.interfaces.ISkin;
+	import com.falanxia.utilitaris.helpers.printf;
 
 
 

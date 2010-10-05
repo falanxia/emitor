@@ -23,9 +23,9 @@
  */
 
 package com.falanxia.emitor.events {
-	import com.falanxia.emitor.*;
+	import com.falanxia.emitor.Asset;
 
-	import flash.events.*;
+	import flash.events.Event;
 
 
 

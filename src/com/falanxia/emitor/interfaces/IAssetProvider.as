@@ -23,8 +23,8 @@
  */
 
 package com.falanxia.emitor.interfaces {
-	import flash.events.*;
-	import flash.utils.*;
+	import flash.events.IEventDispatcher;
+	import flash.utils.Dictionary;
 
 
 
