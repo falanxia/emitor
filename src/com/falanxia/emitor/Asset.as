@@ -23,7 +23,6 @@
  */
 
 package com.falanxia.emitor {
-	import com.falanxia.utilitaris.helpers.printf;
 
 
 
@@ -83,7 +82,7 @@ package com.falanxia.emitor {
 
 			for each(c in _chunksList) {
 				if(c.url == chunk.url) {
-					throw new Error(printf("Chunk with URL %s already added", chunk.url));
+					throw new Error("Chunk with URL " + chunk.url + " already added");
 				}
 			}
 
@@ -111,7 +110,7 @@ package com.falanxia.emitor {
 			}
 
 			if(o == null) {
-				throw new Error(printf("Chunk with URL '%s' not found in Asset '%s'. This probably means the referenced file ('%s') is not bundled in the LBA archive.", url, _id, url));
+				throw new Error("Chunk with URL '" + url + "' not found in Asset '" + _id + "'. This probably means the referenced file ('" + url + "') is not bundled in the LBA archive.");
 			}
 
 			return o;
@@ -166,7 +165,7 @@ package com.falanxia.emitor {
 		 * @return Asset Description
 		 */
 		public function toString():String {
-			return printf("Asset id='%s'", id);
+			return "Asset id='" + id + "'";
 		}
 	}
 }

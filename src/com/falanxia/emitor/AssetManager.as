@@ -24,7 +24,6 @@
 
 package com.falanxia.emitor {
 	import com.falanxia.emitor.interfaces.IAssetProvider;
-	import com.falanxia.utilitaris.helpers.printf;
 
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
@@ -165,7 +164,7 @@ package com.falanxia.emitor {
 
 				var ps:String = _provider.toString();
 
-				out = printf("AssetManager info:\n  provider=%s\n  registered assets: %s", ps, list);
+				out = "AssetManager info:\n  provider=" + ps + "\n  registered assets: " + list;
 			}
 
 			return out;
