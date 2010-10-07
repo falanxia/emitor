@@ -34,7 +34,6 @@ package com.falanxia.emitor.events {
 	 *
 	 * @author Falanxia (<a href="http://falanxia.com">falanxia.com</a>, <a href="http://twitter.com/falanxia">@falanxia</a>)
 	 * @author Vaclav Vancura @ Falanxia a.s. <vaclav@falanxia.com>
-	 * @since 1.0
 	 */
 	public class ProviderErrorEvent extends ErrorEvent {
 
@@ -56,12 +55,10 @@ package com.falanxia.emitor.events {
 		/**
 		 * Event constructor.
 		 * @param type Event type (see Event constants)
-		 * @param bubbles Bubbles enabled
-		 * @param cancelable Cancel enabled
 		 * @param text Error description
 		 */
-		public function ProviderErrorEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, text:String = "") {
-			super(type, bubbles, cancelable, text);
+		public function ProviderErrorEvent(type:String, text:String = "") {
+			super(type, false, false, text);
 		}
 
 
@@ -71,17 +68,7 @@ package com.falanxia.emitor.events {
 		 * @return Cloned Event
 		 */
 		public override function clone():Event {
-			return new ProviderErrorEvent(type, bubbles, cancelable, text);
-		}
-
-
-
-		/**
-		 * Generate Event description.
-		 * @return Event description
-		 */
-		public override function toString():String {
-			return formatToString("ProviderErrorEvent", "type", "bubbles", "cancelable", "text");
+			return new ProviderErrorEvent(type, text);
 		}
 	}
 }

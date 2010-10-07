@@ -35,7 +35,6 @@ package com.falanxia.emitor.events {
 	 *
 	 * @author Falanxia (<a href="http://falanxia.com">falanxia.com</a>, <a href="http://twitter.com/falanxia">@falanxia</a>)
 	 * @author Vaclav Vancura @ Falanxia a.s. <vaclav@falanxia.com>
-	 * @since 1.0
 	 */
 	public class ProviderItemEvent extends Event {
 
@@ -50,13 +49,11 @@ package com.falanxia.emitor.events {
 		/**
 		 * Event constructor.
 		 * @param type Event type (see Event constants)
-		 * @param bubbles Bubbles enabled
-		 * @param cancelable Cancel enabled
 		 * @param asset Asset
 		 * @see Asset
 		 */
-		public function ProviderItemEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, asset:Asset = null) {
-			super(type, bubbles, cancelable);
+		public function ProviderItemEvent(type:String, asset:Asset = null) {
+			super(type, false, false);
 
 			this.asset = asset;
 		}
@@ -68,17 +65,7 @@ package com.falanxia.emitor.events {
 		 * @return Cloned Event
 		 */
 		public override function clone():Event {
-			return new ProviderItemEvent(type, bubbles, cancelable, asset);
-		}
-
-
-
-		/**
-		 * Generate Event description.
-		 * @return Event description
-		 */
-		public override function toString():String {
-			return formatToString("ProviderItemEvent", "type", "bubbles", "cancelable", "asset");
+			return new ProviderItemEvent(type, asset);
 		}
 	}
 }
