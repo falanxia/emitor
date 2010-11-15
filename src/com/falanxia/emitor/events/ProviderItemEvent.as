@@ -39,8 +39,7 @@ package com.falanxia.emitor.events {
 	public class ProviderItemEvent extends Event {
 
 
-		/** Item was successfully loaded */
-		public static const ITEM_LOADED:String = "itemLoaded";
+		public static const ITEM_LOADED:String = "providerItemEvent:itemLoaded";
 
 		public var asset:Asset;
 
