@@ -30,14 +30,17 @@ package com.falanxia.emitor.globals {
 
 
 
-	public function A2S(id:String, assetManagerID:String = null):ISkin {
+	public function A2S(id:String, assetManagerID:String = null, doNotThrowError:Boolean = false):ISkin {
 		if(assetManagerID == null) assetManagerID = AssetManager.defaultAssetManagerID;
 
 		var assetManager:AssetManager = AssetManager.getAssetManager(assetManagerID);
+
 		var asset:Asset = assetManager.getAsset(id);
 
 		if(asset == null) {
-			throw new Error("Asset '" + id + "' is not defined in skin. This probably means it's not specified in the JSON config file.");
+			if(!doNotThrowError) {
+				throw new Error("Asset '" + id + "' is not defined in skin. This probably means it's not specified in the JSON config file.");
+			} else return null;
 		}
 
 		return SkinManager.assetToSkin(asset);
