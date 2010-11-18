@@ -39,16 +39,16 @@ package com.falanxia.emitor.events {
 
 
 		/** Provider error */
-		public static const PROVIDER_ERROR:String = "providerError";
+		public static const PROVIDER_ERROR:String = "providerErrorEvent:providerError";
 
 		/** Item not found */
-		public static const ITEM_NOT_FOUND:String = "itemNotFound";
+		public static const ITEM_NOT_FOUND:String = "providerErrorEvent:itemNotFound";
 
 		/** Item load failed */
-		public static const ITEM_LOAD_FAILED:String = "itemLoadFailed";
+		public static const ITEM_LOAD_FAILED:String = "providerErrorEvent:itemLoadFailed";
 
 		/** Config parsing error */
-		public static const CONFIG_PARSING_ERROR:String = "configParsingError";
+		public static const CONFIG_PARSING_ERROR:String = "providerErrorEvent:configParsingError";
 
 
 
