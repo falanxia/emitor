@@ -22,25 +22,24 @@
  * THE SOFTWARE.
  */
 
-package com.falanxia.emitor.globals {
-	import com.falanxia.emitor.Asset;
-	import com.falanxia.emitor.AssetManager;
-	import com.falanxia.moderatrix.globals.SkinManager;
-	import com.falanxia.moderatrix.interfaces.ISkin;
+package com.falanxia.emitor {
 
 
 
-	public function A2S(id:String, assetCollectionID:String = null, doNotThrowError:Boolean = false):ISkin {
-		if(assetCollectionID == null) assetCollectionID = AssetManager.getInstance().defaultCollectionID; // FIXME: Speed this up!
+	/**
+	 * Emitor singleton enforcer.
+	 *
+	 * @author Vaclav Vancura @ Falanxia a.s. <vaclav@falanxia.com>
+	 * @author Falanxia (<a href="http://falanxia.com">falanxia.com</a>, <a href="http://twitter.com/falanxia">@falanxia</a>)
+	 */
+	internal class Senf {
 
-		var asset:Asset = AssetManager.getInstance().getCollection(assetCollectionID).getAsset(id); // FIXME: Speed this up!
 
-		if(asset == null) {
-			if(!doNotThrowError) {
-				throw new Error("A2S: Asset '" + id + "' is not defined in skin. This probably means it's not specified in the JSON config file");
-			}
+
+		/**
+		 * Constructor.
+		 */
+		public function Senf() {
 		}
-
-		return SkinManager.assetToSkin(asset);
 	}
 }

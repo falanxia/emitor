@@ -30,14 +30,15 @@ package com.falanxia.emitor.globals {
 
 
 
-	public function A2B(id:String, assetManagerID:String = null):BitmapData {
-		if(assetManagerID == null) assetManagerID = AssetManager.defaultAssetManagerID;
+	public function A2B(id:String, assetCollectionID:String = null, doNotThrowError:Boolean = false):BitmapData {
+		if(assetCollectionID == null) assetCollectionID = AssetManager.getInstance().defaultCollectionID; // FIXME: Speed this up!
 
-		var assetManager:AssetManager = AssetManager.getAssetManager(assetManagerID);
-		var asset:Asset = assetManager.getAsset(id);
+		var asset:Asset = AssetManager.getInstance().getCollection(assetCollectionID).getAsset(id); // FIXME: Speed this up!
 
 		if(asset == null) {
-			throw new Error("Asset '" + id + "' is not defined in skin. This probably means it's not specified in the JSON config file.");
+			if(!doNotThrowError) {
+				throw new Error("A2B: Asset '" + id + "' is not defined in skin. This probably means it's not specified in the JSON config file.");
+			}
 		}
 
 		return asset.getChunkByURL(id).bitmap.bitmapData;

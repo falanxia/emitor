@@ -40,218 +40,119 @@ package com.falanxia.emitor {
 	public class AssetManager extends EventDispatcher {
 
 
-		private static var allAssetManagerList:Dictionary;
+		private static var instance:AssetManager;
 
-		private static var _defaultAssetManagerID:String;
+		private var allCollectionList:Dictionary;
 
-		private var _provider:IAssetProvider;
-		private var _id:String;
+		private var _defaultCollectionID:String;
 
 
 
 		/**
-		 * Get an AssetManager by its ID.
-		 * @param id AssetManager ID
-		 * @return AssetManager
+		 * Constructor.
 		 */
-		public static function getAssetManager(id:String):AssetManager {
-			var assetManager:Object = allAssetManagerList[id];
-
-			return (assetManager == null) ? null : AssetManager(assetManager);
+		public function AssetManager(s:Senf) {
+			if(s == null) throw new Error("AssetManager is singleton, use getInstance() method");
 		}
 
 
 
 		/**
-		 * Set AssetManager.
-		 * @param id AssetManager ID
+		 * Singleton acces method
+		 * @return Instance of the AssetManager singleton.
+		 */
+		public static function getInstance():AssetManager {
+			if(instance == null) instance = new AssetManager(new Senf());
+
+			return instance;
+		}
+
+
+
+		/**
+		 * Get an AssetCollection by its ID.
+		 * @param id AssetCollection ID
+		 * @return AssetCollection
+		 */
+		public function getCollection(id:String):AssetCollection {
+			var collection:Object = allCollectionList[id];
+
+			return (collection == null) ? null : AssetCollection(collection);
+		}
+
+
+
+		/**
+		 * Set AssetCollection.
+		 * @param id AssetCollection ID
 		 * @param provider Provider
 		 */
-		public static function setAssetManager(id:String, provider:IAssetProvider):void {
-			if(allAssetManagerList == null) {
-				allAssetManagerList = new Dictionary(true);
-				_defaultAssetManagerID = id;
+		public function setCollection(id:String, provider:IAssetProvider):void {
+			if(allCollectionList == null) {
+				allCollectionList = new Dictionary(true);
+
+				_defaultCollectionID = id;
 			}
 
-			allAssetManagerList[id] = new AssetManager(id, provider);
+			allCollectionList[id] = new AssetCollection(id, provider);
 		}
 
 
 
 		/**
-		 * Get default AssetManager ID.
-		 * @return Default AssetManager ID
+		 * Get default AssetCollection ID.
+		 * @return Default AssetCollection ID
 		 */
-		public static function get defaultAssetManagerID():String {
-			return _defaultAssetManagerID;
+		public function get defaultCollectionID():String {
+			return _defaultCollectionID;
 		}
 
 
 
 		/**
-		 * Set default AssetManager ID.
-		 * @param value Default AssetManager ID
+		 * Set default AssetCollection ID.
+		 * @param value Default AssetCollection ID
 		 */
-		public static function set defaultAssetManagerID(value:String):void {
-			_defaultAssetManagerID = value;
+		public function set defaultCollectionID(value:String):void {
+			_defaultCollectionID = value;
 		}
 
 
 
 		/**
-		 * Create an instance of AssetManager and attach a Provider.
-		 * @param id AssetManager ID
+		 * Create an instance of AssetCollection and attach a Provider.
+		 * @param id AssetCollection ID
 		 * @param provider Provider to be attached
 		 * @see IAssetProvider
 		 */
-		public function AssetManager(id:String, provider:IAssetProvider) {
-			if(allAssetManagerList == null) {
-				allAssetManagerList = new Dictionary(true);
-				_defaultAssetManagerID = id;
+		public function createCollection(id:String, provider:IAssetProvider):AssetCollection {
+			if(allCollectionList == null) {
+				allCollectionList = new Dictionary(true);
+
+				_defaultCollectionID = id;
 			}
 
-			allAssetManagerList[id] = this;
+			var collection:AssetCollection = new AssetCollection(id, provider);
 
-			_id = id;
-			_provider = provider;
+			allCollectionList[id] = collection;
+
+			return collection;
 		}
 
 
 
 		/**
 		 * Destructor.
+		 * @param id AssetCollection ID
 		 */
-		public function destroy():void {
-			delete allAssetManagerList[_id];
+		public function destroyCollection(id:String):void {
+			var collection:Object = allCollectionList[id];
 
-			_provider.destroy();
-			_id = null;
-		}
-
-
-
-		/**
-		 * Get an Asset.
-		 * @param id Asset ID
-		 * @return Asset (if defined, null if not)
-		 * @throws Error if Asset provider not attached
-		 */
-		public function getAsset(id:String):Asset {
-			var out:Asset;
-
-			if(_provider == null) {
-				throw new Error("Asset provider not attached");
+			if(collection != null) {
+				AssetCollection(collection).destroy();
 			}
 
-			else {
-				for each(var item:Asset in _provider.assetsDictionary) {
-					if(item.id == id) out = item;
-				}
-			}
-
-			return out;
-		}
-
-
-
-		/**
-		 * Generate AssetManager description.
-		 * @return AssetManager description
-		 */
-		override public function toString():String {
-			var out:String;
-
-			if(_provider == null) {
-				out = "AssetManager info:\n  provider not attached";
-			}
-
-			else {
-				// create list of assets
-				var list:String = "";
-				var i:Asset;
-
-				for each(i in _provider.assetsDictionary) {
-					list += i.id + ", ";
-				}
-
-				// strip trailing ", "
-				list = list.substr(0, list.length - 2);
-
-				var ps:String = _provider.toString();
-
-				out = "AssetManager info:\n  provider=" + ps + "\n  registered assets: " + list;
-			}
-
-			return out;
-		}
-
-
-
-		/**
-		 * Get Dictionary of Assets.
-		 * @return Dictionary of assets as Array
-		 * @throws Error if Asset provider not attached
-		 */
-		public function get assetsDictionary():Dictionary {
-			if(_provider == null) {
-				throw new Error("Asset provider not attached");
-			}
-
-			else {
-				// return asset list
-				return _provider.assetsDictionary;
-			}
-		}
-
-
-
-		/**
-		 * Get AssetManager ID.
-		 * @return AssetManager ID
-		 */
-		public function get id():String {
-			return _id;
-		}
-
-
-
-		/**
-		 * Get pointer to Asset provider.
-		 * @return Asset provider (if attached, null if not)
-		 * @see IAssetProvider
-		 */
-		public function get provider():IAssetProvider {
-			return _provider;
-		}
-
-
-
-		/**
-		 * Has an Error happened?
-		 * @return Error happened flag
-		 */
-		public function get isError():Boolean {
-			return (_provider == null) ? false : _provider.isError;
-		}
-
-
-
-		/**
-		 * Is AssetManager active?
-		 * @return com.falanxia.emitor.AssetManager active flag
-		 */
-		public function get isActive():Boolean {
-			return (_provider == null) ? false : _provider.isActive;
-		}
-
-
-
-		/**
-		 * Is everything loaded?
-		 * @return Loaded flag
-		 */
-		public function get isLoaded():Boolean {
-			return (_provider == null) ? false : _provider.isLoaded;
+			delete allCollectionList[id];
 		}
 	}
 }

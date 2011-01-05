@@ -30,7 +30,7 @@ package com.falanxia.emitor.events {
 
 
 	/**
-	 * AssetManager event.
+	 * Provider item event.
 	 * Usually means an item was loaded.
 	 *
 	 * @author Falanxia (<a href="http://falanxia.com">falanxia.com</a>, <a href="http://twitter.com/falanxia">@falanxia</a>)
