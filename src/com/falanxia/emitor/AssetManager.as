@@ -71,11 +71,12 @@ package com.falanxia.emitor {
 
 		/**
 		 * Get an AssetCollection by its ID.
-		 * @param id AssetCollection ID
+		 * If no AssetCollection is supplied, default collection is used instead.
+		 * @param id (optional) AssetCollection ID
 		 * @return AssetCollection
 		 */
-		public function getCollection(id:String):AssetCollection {
-			var collection:Object = allCollectionList[id];
+		public function getCollection(id:String = null):AssetCollection {
+			var collection:Object = (id == null) ? allCollectionList[_defaultCollectionID] : allCollectionList[id];
 
 			return (collection == null) ? null : AssetCollection(collection);
 		}
