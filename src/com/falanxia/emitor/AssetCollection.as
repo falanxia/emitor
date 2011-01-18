@@ -74,19 +74,11 @@ package com.falanxia.emitor {
 		 * @throws Error if Asset provider not attached
 		 */
 		public function getAsset(id:String):Asset {
-			var out:Asset;
-
 			if(_provider == null) {
 				throw new Error("Asset provider not attached");
 			}
 
-			else {
-				for each(var item:Asset in _provider.assetsDictionary) {
-					if(item.id == id) out = item; // FIXME: Fuck me! This is the slowest possible method, fix it ASAP!
-				}
-			}
-
-			return out;
+			return _provider.assetsDictionary[id];
 		}
 
 
@@ -99,7 +91,7 @@ package com.falanxia.emitor {
 			var out:String;
 
 			if(_provider == null) {
-				out = "AssetCollection:\n  provider not attached";
+				out = "AssetCollection: Provider not attached";
 			}
 
 			else {
