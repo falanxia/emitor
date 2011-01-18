@@ -38,7 +38,7 @@ package com.falanxia.emitor {
 
 		private var _id:String;
 		private var _config:Object;
-		private var _chunksList:Array = new Array();
+		private var _chunksList:Array = [];
 
 
 
