@@ -31,9 +31,13 @@ package com.falanxia.emitor.globals {
 
 
 	public function A2S(id:String, assetCollectionID:String = null, doNotThrowError:Boolean = false):ISkin {
-		if(assetCollectionID == null) assetCollectionID = AssetManager.getInstance().defaultCollectionID; // FIXME: Speed this up!
+		var assetManager:AssetManager = AssetManager.getInstance();
 
-		var asset:Asset = AssetManager.getInstance().getCollection(assetCollectionID).getAsset(id); // FIXME: Speed this up!
+		if(assetCollectionID == null) {
+			assetCollectionID = assetManager.defaultCollectionID;
+		}
+
+		var asset:Asset = assetManager.getCollection(assetCollectionID).getAsset(id);
 
 		if(asset == null) {
 			if(!doNotThrowError) {
