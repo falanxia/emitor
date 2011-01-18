@@ -156,3 +156,8 @@ package com.falanxia.emitor {
 		}
 	}
 }
+
+
+
+class Senf {
+}
