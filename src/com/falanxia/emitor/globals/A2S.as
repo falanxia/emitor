@@ -45,6 +45,6 @@ package com.falanxia.emitor.globals {
 			}
 		}
 
-		return SkinManager.assetToSkin(asset);
+		return SkinManager.getInstance().assetToSkin(asset);
 	}
 }
