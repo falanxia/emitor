@@ -32,7 +32,7 @@ package com.falanxia.emitor.interfaces {
 	 * AssetProvider interface.
 	 *
 	 * @author Falanxia (<a href="http://falanxia.com">falanxia.com</a>, <a href="http://twitter.com/falanxia">@falanxia</a>)
-	 * @author Vaclav Vancura @ Falanxia a.s. <vaclav@falanxia.com>
+	 * @author Vaclav Vancura / Falanxia a.s.
 	 * @since 1.0
 	 */
 	public interface IAssetProvider extends IEventDispatcher {
